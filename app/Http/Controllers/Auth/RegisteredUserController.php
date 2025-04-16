@@ -8,6 +8,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
@@ -40,7 +41,14 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'ip_address' => $request->ip(),
+            'status' => 0,
+            'balance' => 0,
         ]);
+
+        $user->sendEmailVerificationNotification();
+        
+        \Log::info('User IP Address: '.$request->ip());
 
         event(new Registered($user));
 
