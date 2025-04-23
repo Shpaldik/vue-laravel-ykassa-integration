@@ -7,7 +7,7 @@ import { createApp, h, DefineComponent } from 'vue'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy'
 
 import { useDark } from '@vueuse/core'
-
+import { VueReCaptcha, useReCaptcha } from 'vue-recaptcha-v3'
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 createInertiaApp({
@@ -25,9 +25,18 @@ createInertiaApp({
       valueLight: '',
       storageKey: 'theme',
     })
+    const captcheKey = props.initialPage.props.recaptcha_site_key;
 
     createApp({ render: () => h(App, props) })
       .use(plugin)
+      .use(VueReCaptcha, { siteKey: captcheKey,
+        loaderOptions: {
+          autoHideBadge: false,
+          explicitRenderParameters:{
+            badge: "bottomright"
+          }
+        }
+       } )
       .use(ZiggyVue)
       .mount(el)
   },

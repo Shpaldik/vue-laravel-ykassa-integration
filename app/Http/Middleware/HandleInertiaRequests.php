@@ -29,11 +29,11 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return [
-            ...parent::share($request),
+        return array_merge(parent::share($request),[
             'auth' => [
                 'user' => $request->user(),
             ],
-        ];
+            'recaptcha_site_key' => config('services.google_recaptcha.site_key'),
+            ]);
     }
 }

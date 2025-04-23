@@ -8,6 +8,7 @@ defineProps<{
     laravelVersion: string;
     phpVersion: string;
 }>();
+
 </script>
 
 <template>
@@ -55,7 +56,7 @@ defineProps<{
                 <!-- Если не авторизован -->
                 <template v-else>
                     <Link
-                        v-if="canLogin"
+                        
                         :href="route('login')"
                         class="text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-400"
                     >
@@ -63,7 +64,7 @@ defineProps<{
                     </Link>
 
                     <Link
-                        v-if="canRegister"
+                       
                         :href="route('register')"
                         class="text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-400"
                     >
