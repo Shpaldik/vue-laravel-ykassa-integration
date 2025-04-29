@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 
 // Переменная для отслеживания текущей темы
 const isDark = ref(false);
@@ -18,13 +18,13 @@ const isDark = ref(false);
 // Функция для переключения темы
 function toggleTheme() {
   isDark.value = !isDark.value;
-  document.documentElement.classList.toggle('dark', isDark.value);
-  localStorage.setItem('theme', isDark.value ? 'dark' : 'light');
+  document.documentElement.classList.toggle("dark", isDark.value);
+  localStorage.setItem("theme", isDark.value ? "dark" : "light");
 }
 
 // При монтировании проверяем текущую тему
 onMounted(() => {
-  isDark.value = document.documentElement.classList.contains('dark');
+  isDark.value = document.documentElement.classList.contains("dark");
 });
 </script>
 
