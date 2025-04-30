@@ -21,7 +21,7 @@ function handleImageError() {
   <Header />
 
   <!-- Корневой контейнер с тёмной темой -->
-  <div class="dark:bg-gray-900 dark:text-white">
+  <div class="dark:bg-gray-900 dark:text-white blue:bg-blue-900">
     <div
       class="bg-gray-50 text-black/50 dark:bg-gray-900 dark:text-white/70 relative flex min-h-screen flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white px-6 py-12"
     >
