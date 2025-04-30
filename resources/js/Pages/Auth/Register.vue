@@ -19,13 +19,8 @@ const form = useForm({
 });
 
 const submit = async () => {
-  // wait until the library has loaded
   await recaptchaLoaded();
-
-  // grab a token for the "register" action
   form.captcha_token = await executeRecaptcha("register");
-
-  // finally submit
   form.post(route("register"), {
     onFinish: () => {
       form.reset("password", "password_confirmation");
@@ -35,7 +30,7 @@ const submit = async () => {
 </script>
 
 <template>
-  <div class="dark:bg-gray-900 dark:text-white">
+  <div class="bg-skin-bg text-skin-text min-h-screen">
     <GuestLayout>
       <Head title="Register" />
 
@@ -96,17 +91,17 @@ const submit = async () => {
           <InputError :message="form.errors.password_confirmation" class="mt-2" />
         </div>
 
-        <!-- Hidden reCAPTCHA token (optional) -->
+        <!-- Hidden reCAPTCHA token -->
         <input type="hidden" v-model="form.captcha_token" />
 
-        <!-- Display any reCAPTCHA error -->
+        <!-- reCAPTCHA error -->
         <div class="mt-4">
           <InputError :message="form.errors.captcha_token" />
         </div>
 
         <!-- Submit -->
         <div class="mt-4 flex items-center justify-end">
-          <Link :href="route('login')" class="underline text-gray-900 dark:text-white">
+          <Link :href="route('login')" class="underline text-skin-text">
             Already registered?
           </Link>
           <PrimaryButton
@@ -121,5 +116,3 @@ const submit = async () => {
     </GuestLayout>
   </div>
 </template>
-
-<style></style>

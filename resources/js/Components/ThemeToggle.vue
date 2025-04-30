@@ -4,19 +4,22 @@
     class="p-2 rounded transition-colors bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
     aria-label="Toggle theme"
   >
-    <span v-if="theme === 'dark'">🌞</span>
-    <span v-else-if="theme === 'blue'">🔵</span>
-    <span v-else>🌙</span>
+    <!-- Если сейчас светлая, показываем луну (перейдём в тёмную) -->
+    <span v-if="theme === 'light'">🌙</span>
+
+    <!-- Если сейчас тёмная, показываем синюю (перейдём в синюю) -->
+    <span v-else-if="theme === 'dark'">🔵</span>
+
+    <!-- Если сейчас синяя, показываем солнце (перейдём в светлую) -->
+    <span v-else>🌞</span>
   </button>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 
-// Define a reactive variable for the theme ('light', 'dark', 'blue')
 const theme = ref<string>(localStorage.getItem("theme") || "light");
 
-// Function to toggle between themes
 function toggleTheme() {
   if (theme.value === "light") {
     theme.value = "dark";
@@ -26,34 +29,26 @@ function toggleTheme() {
     theme.value = "light";
   }
 
-  // Apply the correct classes to <html> based on the selected theme
   const html = document.documentElement;
   html.classList.remove("dark", "blue");
   if (theme.value === "dark") {
     html.classList.add("dark");
   } else if (theme.value === "blue") {
     html.classList.add("blue");
-  } else {
-    // No extra class for light, it's the default.
-    html.classList.remove("blue");
   }
 
-  // Save the selected theme in localStorage
   localStorage.setItem("theme", theme.value);
 }
 
-// On mounted, apply the theme stored in localStorage
 onMounted(() => {
   const storedTheme = localStorage.getItem("theme") || "light";
   theme.value = storedTheme;
-
   const html = document.documentElement;
+  html.classList.remove("dark", "blue");
   if (storedTheme === "dark") {
     html.classList.add("dark");
   } else if (storedTheme === "blue") {
     html.classList.add("blue");
-  } else {
-    html.classList.remove("dark", "blue");
   }
 });
 </script>

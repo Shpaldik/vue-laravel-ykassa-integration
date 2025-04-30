@@ -19,57 +19,53 @@ const form = useForm({
 </script>
 
 <template>
-  <section
-    class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6 transition-colors duration-200"
-  >
+  <section class="bg-skin-fill shadow sm:rounded-lg p-6 transition-colors duration-200">
     <header class="mb-6">
-      <h2 class="text-lg font-medium text-gray-800 dark:text-white">
-        Profile Information
-      </h2>
-      <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+      <h2 class="text-lg font-medium text-skin-text">Profile Information</h2>
+      <p class="mt-1 text-sm text-skin-text opacity-70">
         Update your account's profile information and email address.
       </p>
     </header>
 
     <form @submit.prevent="form.patch(route('profile.update'))" class="space-y-6">
-      <!-- Name -->
+
       <div>
-        <InputLabel for="name" value="Name" />
+        <InputLabel for="name" value="Name" class="text-skin-text" />
         <TextInput
           id="name"
           type="text"
-          class="mt-1 block w-full"
+          class="mt-1 block w-full bg-skin-fill text-skin-text placeholder-skin-text/50 border border-skin-fill rounded-md focus:ring-2 focus:ring-skin-primary focus:border-skin-primary transition-colors duration-200"
           v-model="form.name"
           required
           autofocus
           autocomplete="name"
         />
-        <InputError class="mt-2" :message="form.errors.name" />
+        <InputError class="mt-2 text-skin-text opacity-70" :message="form.errors.name" />
       </div>
 
       <!-- Email -->
       <div>
-        <InputLabel for="email" value="Email" />
+        <InputLabel for="email" value="Email" class="text-skin-text" />
         <TextInput
           id="email"
           type="email"
-          class="mt-1 block w-full"
+          class="mt-1 block w-full bg-skin-fill text-skin-text placeholder-skin-text/50 border border-skin-fill rounded-md focus:ring-2 focus:ring-skin-primary focus:border-skin-primary transition-colors duration-200"
           v-model="form.email"
           required
           autocomplete="username"
         />
-        <InputError class="mt-2" :message="form.errors.email" />
+        <InputError class="mt-2 text-skin-text opacity-70" :message="form.errors.email" />
       </div>
 
       <!-- Email verification -->
       <div v-if="mustVerifyEmail && user.email_verified_at === null">
-        <p class="mt-2 text-sm text-yellow-700 dark:text-yellow-300">
+        <p class="mt-2 text-sm text-skin-text opacity-70">
           Your email address is unverified.
           <Link
             :href="route('verification.send')"
             method="post"
             as="button"
-            class="ml-1 underline text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+            class="ml-1 underline text-skin-primary hover:opacity-70 transition-colors"
           >
             Click here to re-send the verification email.
           </Link>
@@ -77,7 +73,7 @@ const form = useForm({
 
         <div
           v-show="status === 'verification-link-sent'"
-          class="mt-2 text-sm font-medium text-green-600 dark:text-green-400"
+          class="mt-2 text-sm font-medium text-skin-primary"
         >
           A new verification link has been sent to your email address.
         </div>
@@ -93,12 +89,7 @@ const form = useForm({
           leave-active-class="transition ease-in-out"
           leave-to-class="opacity-0"
         >
-          <p
-            v-if="form.recentlySuccessful"
-            class="text-sm text-green-600 dark:text-green-400"
-          >
-            Saved.
-          </p>
+          <p v-if="form.recentlySuccessful" class="text-sm text-skin-primary">Saved.</p>
         </Transition>
       </div>
     </form>

@@ -40,12 +40,12 @@ const closeModal = () => {
 
 <template>
   <section
-    class="space-y-6 bg-white dark:bg-gray-800 p-6 shadow sm:rounded-lg transition-colors duration-200"
+    class="space-y-6 bg-skin-fill p-6 shadow sm:rounded-lg transition-colors duration-200"
   >
     <header>
-      <h2 class="text-lg font-medium text-gray-800 dark:text-white">Delete Account</h2>
+      <h2 class="text-lg font-medium text-skin-text">Delete Account</h2>
 
-      <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+      <p class="mt-1 text-sm text-skin-text opacity-70">
         Once your account is deleted, all of its resources and data will be permanently
         deleted. Before deleting your account, please download any data or information
         that you wish to retain.
@@ -55,36 +55,42 @@ const closeModal = () => {
     <DangerButton @click="confirmUserDeletion">Delete Account</DangerButton>
 
     <Modal :show="confirmingUserDeletion" @close="closeModal">
-      <div class="p-6 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg">
-        <h2 class="text-lg font-medium">Are you sure you want to delete your account?</h2>
+      <div
+        class="p-6 bg-skin-fill text-skin-text rounded-lg transition-colors duration-200"
+      >
+        <h2 class="text-lg font-medium text-skin-text">
+          Are you sure you want to delete your account?
+        </h2>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+        <p class="mt-1 text-sm text-skin-text opacity-70">
           Once your account is deleted, all of its resources and data will be permanently
           deleted. Please enter your password to confirm you would like to permanently
           delete your account.
         </p>
 
         <div class="mt-6">
-          <InputLabel for="password" value="Password" class="sr-only" />
+          <InputLabel for="password" value="Password" class="sr-only text-skin-text" />
 
           <TextInput
             id="password"
             ref="passwordInput"
             v-model="form.password"
             type="password"
-            class="mt-1 block w-3/4"
+            class="mt-1 block w-3/4 bg-skin-bg text-skin-text border border-skin-fill rounded-md focus:ring-2 focus:ring-skin-primary transition-colors"
             placeholder="Password"
             @keyup.enter="deleteUser"
           />
 
-          <InputError :message="form.errors.password" class="mt-2" />
+          <InputError
+            :message="form.errors.password"
+            class="mt-2 text-skin-text opacity-70"
+          />
         </div>
 
-        <div class="mt-6 flex justify-end">
+        <div class="mt-6 flex justify-end space-x-3">
           <SecondaryButton @click="closeModal">Cancel</SecondaryButton>
-
           <DangerButton
-            class="ms-3"
+            class=""
             :class="{ 'opacity-25': form.processing }"
             :disabled="form.processing"
             @click="deleteUser"

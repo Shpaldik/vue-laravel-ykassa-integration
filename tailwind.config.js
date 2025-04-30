@@ -10,7 +10,7 @@ export default {
         './resources/views/**/*.blade.php',
         './resources/js/**/*.vue',
     ],
-    darkMode: 'class', // уже есть
+    darkMode: 'class',
     theme: {
         extend: {
             fontFamily: {
@@ -30,25 +30,22 @@ export default {
         forms,
         plugin(function ({ addBase }) {
             addBase({
-                // Light (default)
                 ':root': {
                     '--color-fill': '#ffffff',
                     '--color-text': '#000000',
                     '--color-bg': '#f9fafb',
                     '--color-primary': '#3b82f6',
                 },
-                // Dark theme
                 '.dark': {
-                    '--color-fill': '#1f2937',
-                    '--color-text': '#f9fafb',
-                    '--color-bg': '#111827',
-                    '--color-primary': '#6366f1',
+                    '--color-fill': '#1E1E2E',
+                    '--color-text': '#E5E7EB',
+                    '--color-bg': '#11111B',
+                    '--color-primary': '#4F46E5',
                 },
-                // Blue theme
                 '.blue': {
-                    '--color-fill': '#e0f2ff',
-                    '--color-text': '#1e3a8a',
-                    '--color-bg': '#dbeafe',
+                    '--color-fill': '#161E2E',
+                    '--color-text': '#E5E7EB',
+                    '--color-bg': '#0F1727',
                     '--color-primary': '#1d4ed8',
                 },
             });
