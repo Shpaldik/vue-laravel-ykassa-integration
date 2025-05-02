@@ -17,8 +17,7 @@ import { Head } from "@inertiajs/vue3";
           class="overflow-hidden bg-skin-fill shadow-sm sm:rounded-lg transition-colors"
         >
           <div class="p-6 text-skin-text">
-            You’re logged in! This will display information about your service,
-            statistics, notifications, etc.
+            {{ $t('welcome') }}
           </div>
         </div>
       </div>

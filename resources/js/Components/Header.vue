@@ -2,11 +2,11 @@
 import { ref } from "vue";
 import { Link, usePage } from "@inertiajs/vue3";
 import ThemeToggle from "./ThemeToggle.vue";
-import ToggleLang from "./ToggleLang.vue";
 import ApplicationLogo from "./ApplicationLogo.vue";
 import Dropdown from "./Dropdown.vue";
 import DropdownLink from "./DropdownLink.vue";
 import ResponsiveNavLink from "./ResponsiveNavLink.vue";
+import LanguageSwitcher from "./LanguageSwitcher.vue";
 
 const showingNavigationDropdown = ref(false);
 const page = usePage();
@@ -23,7 +23,7 @@ const page = usePage();
 
         <!-- ПК-навигация -->
         <div class="hidden sm:flex items-center gap-6">
-          <ToggleLang />
+          <LanguageSwitcher />
           <ThemeToggle />
 
           <template v-if="page.props.auth.user">
@@ -33,7 +33,7 @@ const page = usePage();
 
             <button
               class="px-4 py-2 bg-skin-primary text-white rounded-md hover:opacity-90 transition text-sm"
-              @click="$inertia.visit(route('top-up'))"
+              @click="$inertia.visit(route('dashboard'))"
             >
               Пополнить
             </button>
@@ -60,15 +60,15 @@ const page = usePage();
               <template #content>
                 <DropdownLink :href="route('profile.edit')">Профиль</DropdownLink>
                 <DropdownLink :href="route('logout')" method="post" as="button"
-                  >Выйти</DropdownLink
+                  >{{ $t('logout') }}</DropdownLink
                 >
               </template>
             </Dropdown>
           </template>
 
           <template v-else>
-            <Link :href="route('login')" class="hover:opacity-70">Log in</Link>
-            <Link :href="route('register')" class="hover:opacity-70">Register</Link>
+            <Link :href="route('login')" class="hover:opacity-70">{{ $t('login') }}</Link>
+            <Link :href="route('register')" class="hover:opacity-70">{{ $t('register') }}</Link>
           </template>
         </div>
 
