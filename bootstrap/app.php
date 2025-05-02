@@ -15,11 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
             \App\Http\Middleware\UpdateLastActivity::class,
-            \App\Http\Middleware\SetLocale::class,          // ← вот сюда
+            \App\Http\Middleware\SetLocale::class,   // ← наш middleware
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })
     ->create();
-

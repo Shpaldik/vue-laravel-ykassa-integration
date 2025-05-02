@@ -7,15 +7,15 @@ import { createApp, h, DefineComponent } from 'vue'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy'
 import { useDark } from '@vueuse/core'
 import { VueReCaptcha } from 'vue-recaptcha-v3'
-import { createI18n }   from 'vue-i18n'
+import { createI18n } from 'vue-i18n'
 
-// импорт JSON-словари, сгенерированные плагином laravel-vue-i18n
+// JSON-словари из resources/lang, конвертированные плагином
 import en from '@/locale/en.json'
 import ru from '@/locale/ru.json'
 
 const appName      = import.meta.env.VITE_APP_NAME || 'Laravel'
-const browserLocale = (navigator.language || 'en').split('-')[0]
-const defaultLocale = localStorage.getItem('locale') || browserLocale
+const browserLocale= (navigator.language || 'en').split('-')[0]
+const defaultLocale= localStorage.getItem('locale') || browserLocale
 
 const i18n = createI18n({
   legacy: false,
@@ -32,12 +32,12 @@ createInertiaApp({
       import.meta.glob<DefineComponent>('./Pages/**/*.vue')
     ),
   setup({ el, App, props, plugin }) {
-    // получаем из Inertia: serverLocale и список языков
-    const serverLocale      = props.initialPage.props.locale
+    const serverLocale     = props.initialPage.props.locale
     const availableLocales = props.initialPage.props.available_locales
 
-    // принудительно устанавливаем текущую локаль из сервера
-    i18n.global.locale.value = serverLocale
+    // Устанавливаем финальную локаль: из localStorage или от сервера
+    const saved = localStorage.getItem('locale')
+    i18n.global.locale.value = saved || serverLocale
 
     useDark({
       selector: 'html',
@@ -51,11 +51,17 @@ createInertiaApp({
 
     const vueApp = createApp({ render: () => h(App, props) })
       .use(plugin)
-      .use(VueReCaptcha, { siteKey: captchaKey, loaderOptions: { autoHideBadge: false, explicitRenderParameters: { badge: 'bottomright' } } })
+      .use(VueReCaptcha, {
+        siteKey: captchaKey,
+        loaderOptions: {
+          autoHideBadge: false,
+          explicitRenderParameters: { badge: 'bottomright' },
+        },
+      })
       .use(ZiggyVue)
       .use(i18n)
 
-    // прокидываем список языков в компоненты через inject
+    // Прокидываем список языков
     vueApp.provide('availableLocales', availableLocales)
 
     vueApp.mount(el)

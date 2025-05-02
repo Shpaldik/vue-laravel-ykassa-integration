@@ -1,4 +1,17 @@
 {
     "welcome": "Welcome",
-    "logout": "Logout"
+    "main": "Main",
+
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+
+    "top-up": "Top up",
+    "balance": "Balance",
+
+    "profile": "Profile",
+    "settings": "Settings",
+    "language": "Language",
+
+    "delete-confirm": "Once your account is deleted, all of its resources and data will be permanentlydeleted. Before deleting your account, please download any data or information that you wish to retain."
   }

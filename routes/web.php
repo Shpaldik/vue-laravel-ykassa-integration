@@ -6,12 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
-
+// Главная
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin'       => Route::has('login'),
@@ -21,17 +16,19 @@ Route::get('/', function () {
     ]);
 });
 
-// ★ Маршрут переключения языка
+// Маршрут переключения языка
 Route::post('/locale', function () {
     $lang = request()->validate(['locale' => 'required|in:en,ru'])['locale'];
     Session::put('locale', $lang);
     return back(303);
 })->name('locale.switch');
 
+// Dashboard
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Профиль
 Route::middleware('auth')->group(function () {
     Route::get('/profile',   [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

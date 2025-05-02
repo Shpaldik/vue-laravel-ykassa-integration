@@ -11,21 +11,13 @@ class SetLocale
 {
     public function handle(Request $request, Closure $next)
     {
-        // 1) сначала смотрим сессию
-        $lang = Session::get('locale');
+        $locale = Session::get('locale', config('app.locale'));
 
-        // 2) иначе – из Accept-Language
-        if (! $lang) {
-            $lang = substr($request->header('Accept-Language', ''), 0, 2);
+        if (!in_array($locale, ['en', 'ru'])) {
+            $locale = config('app.locale');
         }
 
-        // 3) если не из доступных – берём fallback
-        $available = config('app.available_locales', ['en','ru']);
-        if (! in_array($lang, $available)) {
-            $lang = config('app.fallback_locale', 'en');
-        }
-
-        App::setLocale($lang);
+        App::setLocale($locale);
 
         return $next($request);
     }

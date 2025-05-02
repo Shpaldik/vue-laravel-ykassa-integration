@@ -28,14 +28,14 @@ const page = usePage();
 
           <template v-if="page.props.auth.user">
             <div class="text-sm font-medium opacity-70">
-              Баланс: {{ page.props.auth.user.balance ?? 0 }} ₽
+              {{ $t('balance') }} {{ page.props.auth.user.balance ?? 0 }} ₽
             </div>
 
             <button
               class="px-4 py-2 bg-skin-primary text-white rounded-md hover:opacity-90 transition text-sm"
               @click="$inertia.visit(route('dashboard'))"
             >
-              Пополнить
+              {{ $t('top-up') }}
             </button>
 
             <Dropdown align="right" width="48">
@@ -58,7 +58,7 @@ const page = usePage();
               </template>
 
               <template #content>
-                <DropdownLink :href="route('profile.edit')">Профиль</DropdownLink>
+                <DropdownLink :href="route('profile.edit')">{{ $t('profile') }}</DropdownLink>
                 <DropdownLink :href="route('logout')" method="post" as="button"
                   >{{ $t('logout') }}</DropdownLink
                 >
@@ -118,19 +118,19 @@ const page = usePage();
         <div class="text-sm text-gray-600">{{ page.props.auth.user.email }}</div>
 
         <div class="mt-4 space-y-1">
-          <ResponsiveNavLink :href="route('dashboard')">Главная</ResponsiveNavLink>
-          <ResponsiveNavLink :href="route('dashboard')">Пополнить</ResponsiveNavLink>
-          <ResponsiveNavLink :href="route('profile.edit')">Профиль</ResponsiveNavLink>
+          <ResponsiveNavLink :href="route('dashboard')">{{ $t('main')}}</ResponsiveNavLink>
+          <ResponsiveNavLink :href="route('dashboard')">{{ $t('top-up')}}</ResponsiveNavLink>
+          <ResponsiveNavLink :href="route('profile.edit')">{{ $t('profile')}}</ResponsiveNavLink>
           <ResponsiveNavLink :href="route('logout')" method="post" as="button"
-            >Выйти</ResponsiveNavLink
+            >{{ $t('logout') }}</ResponsiveNavLink
           >
         </div>
       </template>
 
       <template v-else>
         <div class="space-y-1">
-          <ResponsiveNavLink :href="route('login')">Log in</ResponsiveNavLink>
-          <ResponsiveNavLink :href="route('register')">Register</ResponsiveNavLink>
+          <ResponsiveNavLink :href="route('login')">{{ $t('login')}}</ResponsiveNavLink>
+          <ResponsiveNavLink :href="route('register')">{{ $t('register')}}</ResponsiveNavLink>
         </div>
       </template>
     </div>
