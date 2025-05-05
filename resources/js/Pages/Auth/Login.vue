@@ -40,7 +40,7 @@ const submit = () => {
       <form @submit.prevent="submit">
         <!-- Email -->
         <div>
-          <InputLabel for="email" value="Email" class="text-skin-text" />
+          <InputLabel for="email" :value="$t('email')" class="text-skin-text" />
 
           <TextInput
             id="email"
@@ -57,7 +57,7 @@ const submit = () => {
 
         <!-- Password -->
         <div class="mt-4">
-          <InputLabel for="password" value="Password" class="text-skin-text" />
+          <InputLabel for="password" :value="$t('password')" class="text-skin-text" />
 
           <TextInput
             id="password"
@@ -75,7 +75,7 @@ const submit = () => {
         <div class="mt-4 block">
           <label class="flex items-center">
             <Checkbox name="remember" v-model:checked="form.remember" />
-            <span class="ms-2 text-sm text-skin-text/70">Remember me</span>
+            <span class="ms-2 text-sm text-skin-text/70">{{ $t("remember-me") }}</span>
           </label>
         </div>
 
@@ -86,7 +86,7 @@ const submit = () => {
             :href="route('password.request')"
             class="text-sm text-skin-text underline hover:text-skin-primary transition"
           >
-            Forgot your password?
+            {{ $t("forgot-password") }}
           </Link>
 
           <PrimaryButton
@@ -94,7 +94,7 @@ const submit = () => {
             :class="{ 'opacity-25': form.processing }"
             :disabled="form.processing"
           >
-            Log in
+            {{ $t("login") }}
           </PrimaryButton>
         </div>
       </form>

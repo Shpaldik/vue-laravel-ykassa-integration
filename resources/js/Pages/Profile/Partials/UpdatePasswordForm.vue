@@ -40,19 +40,17 @@ const updatePassword = () => {
     class="space-y-6 bg-skin-fill p-6 shadow sm:rounded-lg transition-colors duration-200"
   >
     <header>
-      <h2 class="text-lg font-medium text-skin-text">Update Password</h2>
+      <h2 class="text-lg font-medium text-skin-text">{{ $t("update-password") }}</h2>
       <p class="mt-1 text-sm text-skin-text opacity-70">
-        Ensure your account is using a long, random password to stay secure.
+        {{ $t("account-secure") }}
       </p>
     </header>
 
     <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
       <div>
-        <InputLabel
-          for="current_password"
-          value="Current Password"
-          class="text-skin-text"
-        />
+        <InputLabel for="current_password" class="text-skin-text">{{
+          $t("current-password")
+        }}</InputLabel>
 
         <TextInput
           id="current_password"
@@ -70,7 +68,9 @@ const updatePassword = () => {
       </div>
 
       <div>
-        <InputLabel for="password" value="New Password" class="text-skin-text" />
+        <InputLabel for="password" class="text-skin-text">{{
+          $t("new-password")
+        }}</InputLabel>
 
         <TextInput
           id="password"
@@ -88,11 +88,9 @@ const updatePassword = () => {
       </div>
 
       <div>
-        <InputLabel
-          for="password_confirmation"
-          value="Confirm Password"
-          class="text-skin-text"
-        />
+        <InputLabel for="password_confirmation" class="text-skin-text">{{
+          $t("confirm-password")
+        }}</InputLabel>
 
         <TextInput
           id="password_confirmation"
@@ -109,7 +107,7 @@ const updatePassword = () => {
       </div>
 
       <div class="flex items-center gap-4">
-        <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+        <PrimaryButton :disabled="form.processing">{{ $t("save") }}</PrimaryButton>
 
         <Transition
           enter-active-class="transition ease-in-out"

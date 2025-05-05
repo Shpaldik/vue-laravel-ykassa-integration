@@ -43,27 +43,25 @@ const closeModal = () => {
     class="space-y-6 bg-skin-fill p-6 shadow sm:rounded-lg transition-colors duration-200"
   >
     <header>
-      <h2 class="text-lg font-medium text-skin-text">Delete Account</h2>
+      <h2 class="text-lg font-medium text-skin-text">{{ $t("delete-account") }}</h2>
 
       <p class="mt-1 text-sm text-skin-text opacity-70">
-        {{ $t('delete-confirm') }}
+        {{ $t("delete-confirm") }}
       </p>
     </header>
 
-    <DangerButton @click="confirmUserDeletion">Delete Account</DangerButton>
+    <DangerButton @click="confirmUserDeletion">{{ $t("delete-account") }}</DangerButton>
 
     <Modal :show="confirmingUserDeletion" @close="closeModal">
       <div
         class="p-6 bg-skin-fill text-skin-text rounded-lg transition-colors duration-200"
       >
         <h2 class="text-lg font-medium text-skin-text">
-          Are you sure you want to delete your account?
+          {{ $t("delete-account-title") }}
         </h2>
 
         <p class="mt-1 text-sm text-skin-text opacity-70">
-          Once your account is deleted, all of its resources and data will be permanently
-          deleted. Please enter your password to confirm you would like to permanently
-          delete your account.
+          {{ $t("delete-account-title") }}
         </p>
 
         <div class="mt-6">
@@ -75,7 +73,7 @@ const closeModal = () => {
             v-model="form.password"
             type="password"
             class="mt-1 block w-3/4 bg-skin-bg text-skin-text border border-skin-fill rounded-md focus:ring-2 focus:ring-skin-primary transition-colors"
-            placeholder="Password"
+            :placeholder="$t('password')"
             @keyup.enter="deleteUser"
           />
 
@@ -86,14 +84,14 @@ const closeModal = () => {
         </div>
 
         <div class="mt-6 flex justify-end space-x-3">
-          <SecondaryButton @click="closeModal">Cancel</SecondaryButton>
+          <SecondaryButton @click="closeModal">{{ $t("cancel") }}</SecondaryButton>
           <DangerButton
             class=""
             :class="{ 'opacity-25': form.processing }"
             :disabled="form.processing"
             @click="deleteUser"
           >
-            Delete Account
+            {{ $t("delete-account") }}
           </DangerButton>
         </div>
       </div>

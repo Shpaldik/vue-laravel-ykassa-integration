@@ -37,7 +37,7 @@ const submit = async () => {
       <form @submit.prevent="submit">
         <!-- Name -->
         <div>
-          <InputLabel for="name" value="Name" />
+          <InputLabel for="name" :value="$t('name')" />
           <TextInput
             id="name"
             v-model="form.name"
@@ -51,7 +51,7 @@ const submit = async () => {
 
         <!-- Email -->
         <div class="mt-4">
-          <InputLabel for="email" value="Email" />
+          <InputLabel for="email" :value="$t('email')" />
           <TextInput
             id="email"
             type="email"
@@ -65,7 +65,7 @@ const submit = async () => {
 
         <!-- Password -->
         <div class="mt-4">
-          <InputLabel for="password" value="Password" />
+          <InputLabel for="password" :value="$t('password')" />
           <TextInput
             id="password"
             type="password"
@@ -79,7 +79,7 @@ const submit = async () => {
 
         <!-- Confirm Password -->
         <div class="mt-4">
-          <InputLabel for="password_confirmation" value="Confirm Password" />
+          <InputLabel for="password_confirmation" :value="$t('confirm-password')" />
           <TextInput
             id="password_confirmation"
             type="password"
@@ -102,14 +102,14 @@ const submit = async () => {
         <!-- Submit -->
         <div class="mt-4 flex items-center justify-end">
           <Link :href="route('login')" class="underline text-skin-text">
-            Already registered?
+            {{ $t("already-registered") }}
           </Link>
           <PrimaryButton
             class="ms-4"
             :class="{ 'opacity-25': form.processing }"
             :disabled="form.processing"
           >
-            Register
+            {{ $t("register") }}
           </PrimaryButton>
         </div>
       </form>

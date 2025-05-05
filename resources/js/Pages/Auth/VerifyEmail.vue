@@ -23,14 +23,11 @@ const verificationLinkSent = computed(() => props.status === "verification-link-
       <Head title="Email Verification" />
 
       <div class="mb-4 text-sm text-skin-text">
-        Thanks for signing up! Before getting started, could you verify your email address
-        by clicking on the link we just emailed to you? If you didn't receive the email,
-        we will gladly send you another.
+        {{ $t("before-proceeding") }}
       </div>
 
       <div class="mb-4 text-sm font-medium text-skin-primary" v-if="verificationLinkSent">
-        A new verification link has been sent to the email address you provided during
-        registration.
+        {{ $t("verification-code-sent") }}
       </div>
 
       <form @submit.prevent="submit">
@@ -40,7 +37,7 @@ const verificationLinkSent = computed(() => props.status === "verification-link-
             :disabled="form.processing"
             class="text-skin-fill bg-skin-primary border-skin-primary hover:bg-skin-primary/90 transition-colors"
           >
-            Resend Verification Email
+            {{ $t("resend-verification") }}
           </PrimaryButton>
 
           <Link
@@ -49,7 +46,7 @@ const verificationLinkSent = computed(() => props.status === "verification-link-
             as="button"
             class="rounded-md text-sm text-skin-text underline hover:text-skin-primary focus:outline-none focus:ring-2 focus:ring-skin-primary focus:ring-offset-2"
           >
-            Log Out
+            {{ $t("logout") }}
           </Link>
         </div>
       </form>

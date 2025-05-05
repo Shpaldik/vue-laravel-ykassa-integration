@@ -1,10 +1,16 @@
 {
-    "welcome": "Welcome",
+    "welcome": "Welcome to Your Application!",
+    "hi": "This is a test page to explore Laravel + Inertia + Vue3 integration. You cantoggle themes, test authentication, and more.",
+    "go-to-dashboard": "Go to Dashboard",
+    "edit-profile": "Edit Profile",
     "main": "Main",
 
     "login": "Login",
     "register": "Register",
     "logout": "Logout",
+    "already-registered": "Already registered?",
+    "remember-me": "Remember me",
+    "forgot-password": "Forgot your password?",
 
     "top-up": "Top up",
     "balance": "Balance",
@@ -13,5 +19,27 @@
     "settings": "Settings",
     "language": "Language",
 
-    "delete-confirm": "Once your account is deleted, all of its resources and data will be permanentlydeleted. Before deleting your account, please download any data or information that you wish to retain."
+    "profile-information": "Profile Information",
+    "profile-description": "Update your account's profile information and email address.",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "profile-error": "The provided credentials are incorrect.",
+    "unverified": "Your account is not verified.",
+    "re-send": "Click here to re-send the verification email.",
+    "new-verification-link": "A new verification link has been sent to your email address.",
+    "save": "Save",
+    "saved": "Saved",
+    "cancel": "Cancel",
+    "update-password": "Update Password",
+    "current-password": "Current Password",
+    "new-password": "New Password",
+    "confirm-password": "Confirm Password",
+    "account-secure": "Ensure your account is using a long, random password to stay secure.",
+    "delete-account": "Delete Account",
+    "delete-account-title": "Are you sure you want to delete your account?",
+    "delete-confirm": "Once your account is deleted, all of its resources and data will be permanentlydeleted. Before deleting your account, please download any data or information that you wish to retain.",
+    "before-proceeding": "Thanks for signing up! Before getting started, we must verify your email address. If you did not receive the verification email, we will gladly send you another one.",
+    "resend-verification": "Resend Verification Email",
+    "verification-code-sent": "A fresh verification link has been sent to your email address."
   }
