@@ -19,7 +19,28 @@ const page = usePage();
     <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center">
         <!-- Логотип -->
-        <ApplicationLogo />
+        <div class="flex items-center gap-20">
+          <ApplicationLogo />
+
+          <Link
+            :href="route('dashboard')"
+            class="text-sm text-skin-muted dark:text-skin-muted hover:text-skin-primary dark:hover:text-skin-primary transition duration-300"
+          >
+            {{ $t("Point") }} 1
+          </Link>
+          <Link
+            :href="route('dashboard')"
+            class="text-sm text-skin-muted dark:text-skin-muted hover:text-skin-primary dark:hover:text-skin-primary transition duration-300"
+          >
+            {{ $t("Point") }} 2
+          </Link>
+          <Link
+            :href="route('dashboard')"
+            class="text-sm text-skin-muted dark:text-skin-muted hover:text-skin-primary dark:hover:text-skin-primary transition duration-300"
+          >
+            {{ $t("Point") }} 3
+          </Link>
+        </div>
 
         <!-- ПК-навигация -->
         <div class="hidden sm:flex items-center gap-6">
@@ -28,14 +49,14 @@ const page = usePage();
 
           <template v-if="page.props.auth.user">
             <div class="text-sm font-medium opacity-70">
-              {{ $t('balance') }} {{ page.props.auth.user.balance ?? 0 }} ₽
+              {{ $t("balance") }} {{ page.props.auth.user.balance ?? 0 }} ₽
             </div>
 
             <button
               class="px-4 py-2 bg-skin-primary text-white rounded-md hover:opacity-90 transition text-sm"
               @click="$inertia.visit(route('dashboard'))"
             >
-              {{ $t('top-up') }}
+              {{ $t("top-up") }}
             </button>
 
             <Dropdown align="right" width="48">
@@ -58,17 +79,21 @@ const page = usePage();
               </template>
 
               <template #content>
-                <DropdownLink :href="route('profile.edit')">{{ $t('profile') }}</DropdownLink>
-                <DropdownLink :href="route('logout')" method="post" as="button"
-                  >{{ $t('logout') }}</DropdownLink
-                >
+                <DropdownLink :href="route('profile.edit')">{{
+                  $t("profile")
+                }}</DropdownLink>
+                <DropdownLink :href="route('logout')" method="post" as="button">{{
+                  $t("logout")
+                }}</DropdownLink>
               </template>
             </Dropdown>
           </template>
 
           <template v-else>
-            <Link :href="route('login')" class="hover:opacity-70">{{ $t('login') }}</Link>
-            <Link :href="route('register')" class="hover:opacity-70">{{ $t('register') }}</Link>
+            <Link :href="route('login')" class="hover:opacity-70">{{ $t("login") }}</Link>
+            <Link :href="route('register')" class="hover:opacity-70">{{
+              $t("register")
+            }}</Link>
           </template>
         </div>
 
@@ -118,19 +143,31 @@ const page = usePage();
         <div class="text-sm text-gray-600">{{ page.props.auth.user.email }}</div>
 
         <div class="mt-4 space-y-1">
-          <ResponsiveNavLink :href="route('dashboard')">{{ $t('main')}}</ResponsiveNavLink>
-          <ResponsiveNavLink :href="route('dashboard')">{{ $t('top-up')}}</ResponsiveNavLink>
-          <ResponsiveNavLink :href="route('profile.edit')">{{ $t('profile')}}</ResponsiveNavLink>
-          <ResponsiveNavLink :href="route('logout')" method="post" as="button"
-            >{{ $t('logout') }}</ResponsiveNavLink
-          >
+          <!-- Пункты 1, 2, 3 для мобильной версии с цифрами -->
+          <ResponsiveNavLink :href="route('dashboard')">1</ResponsiveNavLink>
+          <ResponsiveNavLink :href="route('dashboard')">2</ResponsiveNavLink>
+          <ResponsiveNavLink :href="route('dashboard')">3</ResponsiveNavLink>
+          <ResponsiveNavLink :href="route('dashboard')">{{
+            $t("main")
+          }}</ResponsiveNavLink>
+          <ResponsiveNavLink :href="route('dashboard')">{{
+            $t("top-up")
+          }}</ResponsiveNavLink>
+          <ResponsiveNavLink :href="route('profile.edit')">{{
+            $t("profile")
+          }}</ResponsiveNavLink>
+          <ResponsiveNavLink :href="route('logout')" method="post" as="button">{{
+            $t("logout")
+          }}</ResponsiveNavLink>
         </div>
       </template>
 
       <template v-else>
         <div class="space-y-1">
-          <ResponsiveNavLink :href="route('login')">{{ $t('login')}}</ResponsiveNavLink>
-          <ResponsiveNavLink :href="route('register')">{{ $t('register')}}</ResponsiveNavLink>
+          <ResponsiveNavLink :href="route('login')">{{ $t("login") }}</ResponsiveNavLink>
+          <ResponsiveNavLink :href="route('register')">{{
+            $t("register")
+          }}</ResponsiveNavLink>
         </div>
       </template>
     </div>

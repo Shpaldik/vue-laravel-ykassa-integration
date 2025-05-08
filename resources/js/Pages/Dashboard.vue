@@ -8,16 +8,18 @@ import { Head } from "@inertiajs/vue3";
 
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="text-xl font-semibold leading-tight text-skin-text">{{ $t('profile') }}</h2>
+      <h2 class="text-xl font-semibold leading-tight text-[var(--color-text)]">
+        {{ $t("profile") }}
+      </h2>
     </template>
 
     <div class="py-12">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div
-          class="overflow-hidden bg-skin-fill shadow-sm sm:rounded-lg transition-colors"
+          class="overflow-hidden bg-[var(--color-fill)] shadow-sm sm:rounded-lg transition-colors"
         >
-          <div class="p-6 text-skin-text">
-            {{ $t('welcome') }}
+          <div class="p-6 text-[var(--color-text)]">
+            {{ $t("welcome") }}
           </div>
         </div>
       </div>

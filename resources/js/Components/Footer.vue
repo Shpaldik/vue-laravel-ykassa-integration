@@ -1,27 +1,29 @@
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+import { Link } from "@inertiajs/vue3";
+</script>
 
 <template>
-  <footer class="bg-gray-800 dark:bg-gray-900 text-white py-6">
+  <footer class="bg-skin-bg dark:bg-skin-fill text-skin-text dark:text-skin-muted py-6">
     <div class="max-w-7xl mx-auto px-6">
-      <p class="text-center text-lg">Демо сервис</p>
+      <p class="text-center text-lg text-skin-text dark:text-skin-muted">Демо сервис</p>
       <div class="flex justify-center mt-4 space-x-6">
         <Link
-          :href="route('page1')"
-          class="text-sm text-gray-300 hover:text-white transition duration-300"
+          :href="route('dashboard')"
+          class="text-sm text-skin-muted dark:text-skin-muted hover:text-skin-primary dark:hover:text-skin-primary transition duration-300"
         >
-          Пункт 1
+          {{ $t("Point") }} 1
         </Link>
         <Link
-          :href="route('page2')"
-          class="text-sm text-gray-300 hover:text-white transition duration-300"
+          :href="route('dashboard')"
+          class="text-sm text-skin-muted dark:text-skin-muted hover:text-skin-primary dark:hover:text-skin-primary transition duration-300"
         >
-          Пункт 2
+          {{ $t("Point") }} 2
         </Link>
         <Link
-          :href="route('page3')"
-          class="text-sm text-gray-300 hover:text-white transition duration-300"
+          :href="route('dashboard')"
+          class="text-sm text-skin-muted dark:text-skin-muted hover:text-skin-primary dark:hover:text-skin-primary transition duration-300"
         >
-          Пункт 3
+          {{ $t("Point") }} 3
         </Link>
       </div>
     </div>

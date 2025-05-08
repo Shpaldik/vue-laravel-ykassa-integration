@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, Link } from "@inertiajs/vue3";
 import Header from "@/Components/Header.vue";
+import Footer from "@/Components/Footer.vue";
 
 defineProps<{
   canLogin?: boolean;
@@ -19,38 +20,34 @@ function handleImageError() {
   <Head title="Welcome" />
   <Header />
 
-  <!-- Корневой контейнер, полностью на CSS-переменных тем -->
-  <div class="bg-skin-bg text-skin-text transition-colors">
+  <!-- Корневой контейнер с минимальной высотой экрана -->
+  <div
+    class="bg-[var(--color-bg)] text-[var(--color-text)] transition-colors min-h-screen flex flex-col"
+  >
     <div
-      class="bg-skin-fill text-skin-text opacity-90 relative flex min-h-screen flex-col items-center justify-center selection:bg-[var(--color-primary)] selection:text-white px-6 py-12 transition-colors"
+      class="flex-1 bg-[var(--color-fill)] text-[var(--color-text)] opacity-90 relative flex flex-col items-center justify-center selection:bg-[var(--color-primary)] selection:text-white px-6 py-12 transition-colors"
     >
       <div class="w-full max-w-2xl lg:max-w-7xl text-center space-y-6">
-        <!-- Заголовок -->
-        <h1 class="text-3xl font-bold text-skin-text">{{ $t('welcome') }}</h1>
+        <h1 class="text-3xl font-bold text-[var(--color-text)]">{{ $t("welcome") }}</h1>
+        <p class="text-lg text-[var(--color-text)] opacity-70">{{ $t("hi") }}</p>
 
-        <!-- Описание -->
-        <p class="text-lg text-skin-text opacity-70">
-          {{ $t('hi') }}
-        </p>
-
-        <!-- Кнопки навигации -->
         <div class="space-x-4">
           <Link
             :href="route('dashboard')"
-            class="inline-block px-4 py-2 bg-skin-primary text-white rounded-lg transition hover:opacity-90 focus:outline-none focus:ring focus:ring-[var(--color-primary)]"
+            class="inline-block px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg transition hover:opacity-90 focus:outline-none focus:ring focus:ring-[var(--color-primary)]"
           >
-            {{ $t('go-to-dashboard') }}
+            {{ $t("go-to-dashboard") }}
           </Link>
           <Link
             :href="route('profile.edit')"
-            class="inline-block px-4 py-2 bg-skin-primary text-white rounded-lg transition hover:opacity-90 focus:outline-none focus:ring focus:ring-[var(--color-primary)]"
+            class="inline-block px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg transition hover:opacity-90 focus:outline-none focus:ring focus:ring-[var(--color-primary)]"
           >
-           {{ $t('edit-profile') }}
+            {{ $t("edit-profile") }}
           </Link>
         </div>
       </div>
     </div>
+    <!-- Футер внизу -->
+    <Footer />
   </div>
-
-  <Footer />
 </template>

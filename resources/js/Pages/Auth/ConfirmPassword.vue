@@ -30,17 +30,17 @@ const submit = () => {
 
     <form @submit.prevent="submit">
       <div>
-        <InputLabel for="password" value="Password" />
+        <InputLabel for="password" value="Password" class="text-skin-text" />
         <TextInput
           id="password"
           type="password"
-          class="mt-1 block w-full"
+          class="mt-1 block w-full bg-skin-fill text-skin-text border border-skin-border rounded-md placeholder-skin-text/50 focus:ring-2 focus:ring-skin-primary transition"
           v-model="form.password"
           required
           autocomplete="current-password"
           autofocus
         />
-        <InputError class="mt-2" :message="form.errors.password" />
+        <InputError class="mt-2 text-skin-text/70" :message="form.errors.password" />
       </div>
 
       <div class="mt-4 flex justify-end">

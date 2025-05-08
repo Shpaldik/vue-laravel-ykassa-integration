@@ -41,5 +41,7 @@
     "delete-confirm": "Once your account is deleted, all of its resources and data will be permanentlydeleted. Before deleting your account, please download any data or information that you wish to retain.",
     "before-proceeding": "Thanks for signing up! Before getting started, we must verify your email address. If you did not receive the verification email, we will gladly send you another one.",
     "resend-verification": "Resend Verification Email",
-    "verification-code-sent": "A fresh verification link has been sent to your email address."
+    "verification-code-sent": "A fresh verification link has been sent to your email address.",
+
+    "Point": "Point"
   }

@@ -16,13 +16,15 @@ defineProps<{
 
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="text-xl font-semibold leading-tight text-skin-text">{{ $t('profile')}}</h2>
+      <h2 class="text-xl font-semibold leading-tight text-[var(--color-text)]">
+        {{ $t("profile") }}
+      </h2>
     </template>
 
-    <div class="py-12">
-      <div class="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8 bg-skin-fill">
+    <div class="py-12 border-white">
+      <div class="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8 bg-[var(--color-fill)]">
         <!-- Информация профиля -->
-        <div class="bg-skin-fill p-6 shadow sm:rounded-lg transition-colors">
+        <div class="bg-[var(--color-fill)] p-6 shadow sm:rounded-lg transition-colors">
           <UpdateProfileInformationForm
             :must-verify-email="mustVerifyEmail"
             :status="status"
@@ -31,12 +33,12 @@ defineProps<{
         </div>
 
         <!-- Обновление пароля -->
-        <div class="bg-skin-fill p-6 shadow sm:rounded-lg transition-colors">
+        <div class="bg-[var(--color-fill)] p-6 shadow sm:rounded-lg transition-colors">
           <UpdatePasswordForm class="max-w-xl" />
         </div>
 
         <!-- Удаление аккаунта -->
-        <div class="bg-skin-fill p-6 shadow sm:rounded-lg transition-colors">
+        <div class="bg-[var(--color-fill)] p-6 shadow sm:rounded-lg transition-colors">
           <DeleteUserForm class="max-w-xl" />
         </div>
       </div>

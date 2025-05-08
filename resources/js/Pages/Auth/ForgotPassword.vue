@@ -28,10 +28,7 @@ const submit = () => {
       email you a password reset link that will allow you to choose a new one.
     </div>
 
-    <div
-      v-if="status"
-      class="mb-4 text-sm font-medium text-green-600 dark:text-green-400"
-    >
+    <div v-if="status" class="mb-4 text-sm font-medium text-skin-success">
       {{ status }}
     </div>
 
@@ -42,7 +39,7 @@ const submit = () => {
         <TextInput
           id="email"
           type="email"
-          class="mt-1 block w-full bg-skin-fill text-skin-text border border-skin-fill rounded-md placeholder-skin-text/70 focus:ring-2 focus:ring-skin-primary focus:border-skin-primary transition-colors"
+          class="mt-1 block w-full bg-skin-fill text-skin-text border border-skin-border rounded-md placeholder-skin-text/70 focus:ring-2 focus:ring-skin-primary focus:border-skin-primary transition-colors"
           v-model="form.email"
           required
           autofocus
@@ -54,7 +51,7 @@ const submit = () => {
 
       <div class="mt-4 flex items-center justify-end">
         <PrimaryButton
-          class="bg-skin-primary text-white hover:opacity-90 transition-opacity"
+          class="ms-4"
           :class="{ 'opacity-25': form.processing }"
           :disabled="form.processing"
         >

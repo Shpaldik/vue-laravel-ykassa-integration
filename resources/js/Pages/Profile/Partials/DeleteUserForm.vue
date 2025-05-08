@@ -40,7 +40,7 @@ const closeModal = () => {
 
 <template>
   <section
-    class="space-y-6 bg-skin-fill p-6 shadow sm:rounded-lg transition-colors duration-200"
+    class="space-y-6 border-white bg-skin-fill p-6 shadow sm:rounded-lg transition-colors duration-200"
   >
     <header>
       <h2 class="text-lg font-medium text-skin-text">{{ $t("delete-account") }}</h2>

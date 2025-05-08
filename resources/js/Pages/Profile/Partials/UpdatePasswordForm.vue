@@ -37,18 +37,20 @@ const updatePassword = () => {
 
 <template>
   <section
-    class="space-y-6 bg-skin-fill p-6 shadow sm:rounded-lg transition-colors duration-200"
+    class="space-y-6 bg-[var(--color-fill)] p-6 shadow sm:rounded-lg transition-colors duration-200"
   >
     <header>
-      <h2 class="text-lg font-medium text-skin-text">{{ $t("update-password") }}</h2>
-      <p class="mt-1 text-sm text-skin-text opacity-70">
+      <h2 class="text-lg font-medium text-[var(--color-text)]">
+        {{ $t("update-password") }}
+      </h2>
+      <p class="mt-1 text-sm text-[var(--color-text)] opacity-70">
         {{ $t("account-secure") }}
       </p>
     </header>
 
     <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
       <div>
-        <InputLabel for="current_password" class="text-skin-text">{{
+        <InputLabel for="current_password" class="text-[var(--color-text)]">{{
           $t("current-password")
         }}</InputLabel>
 
@@ -57,18 +59,18 @@ const updatePassword = () => {
           ref="currentPasswordInput"
           v-model="form.current_password"
           type="password"
-          class="mt-1 block w-full bg-skin-bg text-skin-text border border-skin-fill rounded-md focus:ring-2 focus:ring-skin-primary transition-colors"
+          class="mt-1 block w-full bg-[var(--color-bg)] text-[var(--color-text)] border border-[var(--color-fill)] rounded-md focus:ring-2 focus:ring-[var(--color-primary)] transition-colors"
           autocomplete="current-password"
         />
 
         <InputError
           :message="form.errors.current_password"
-          class="mt-2 text-skin-text opacity-70"
+          class="mt-2 text-[var(--color-text)] opacity-70"
         />
       </div>
 
       <div>
-        <InputLabel for="password" class="text-skin-text">{{
+        <InputLabel for="password" class="text-[var(--color-text)]">{{
           $t("new-password")
         }}</InputLabel>
 
@@ -77,18 +79,18 @@ const updatePassword = () => {
           ref="passwordInput"
           v-model="form.password"
           type="password"
-          class="mt-1 block w-full bg-skin-bg text-skin-text border border-skin-fill rounded-md focus:ring-2 focus:ring-skin-primary transition-colors"
+          class="mt-1 block w-full bg-[var(--color-bg)] text-[var(--color-text)] border border-[var(--color-fill)] rounded-md focus:ring-2 focus:ring-[var(--color-primary)] transition-colors"
           autocomplete="new-password"
         />
 
         <InputError
           :message="form.errors.password"
-          class="mt-2 text-skin-text opacity-70"
+          class="mt-2 text-[var(--color-text)] opacity-70"
         />
       </div>
 
       <div>
-        <InputLabel for="password_confirmation" class="text-skin-text">{{
+        <InputLabel for="password_confirmation" class="text-[var(--color-text)]">{{
           $t("confirm-password")
         }}</InputLabel>
 
@@ -96,13 +98,13 @@ const updatePassword = () => {
           id="password_confirmation"
           v-model="form.password_confirmation"
           type="password"
-          class="mt-1 block w-full bg-skin-bg text-skin-text border border-skin-fill rounded-md focus:ring-2 focus:ring-skin-primary transition-colors"
+          class="mt-1 block w-full bg-[var(--color-bg)] text-[var(--color-text)] border border-[var(--color-fill)] rounded-md focus:ring-2 focus:ring-[var(--color-primary)] transition-colors"
           autocomplete="new-password"
         />
 
         <InputError
           :message="form.errors.password_confirmation"
-          class="mt-2 text-skin-text opacity-70"
+          class="mt-2 text-[var(--color-text)] opacity-70"
         />
       </div>
 
@@ -115,7 +117,9 @@ const updatePassword = () => {
           leave-active-class="transition ease-in-out"
           leave-to-class="opacity-0"
         >
-          <p v-if="form.recentlySuccessful" class="text-sm text-skin-primary">Saved.</p>
+          <p v-if="form.recentlySuccessful" class="text-sm text-[var(--color-primary)]">
+            Saved.
+          </p>
         </Transition>
       </div>
     </form>

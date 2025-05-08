@@ -19,69 +19,82 @@ const form = useForm({
 </script>
 
 <template>
-  <section class="bg-skin-fill shadow sm:rounded-lg p-6 transition-colors duration-200">
+  <section
+    class="bg-[var(--color-fill)] shadow sm:rounded-lg p-6 transition-colors duration-200"
+  >
     <header class="mb-6">
-      <h2 class="text-lg font-medium text-skin-text">{{ $t('profile-information') }}</h2>
-      <p class="mt-1 text-sm text-skin-text opacity-70">
-        {{ $t('profile-information') }}
+      <h2 class="text-lg font-medium text-[var(--color-text)]">
+        {{ $t("profile-information") }}
+      </h2>
+      <p class="mt-1 text-sm text-[var(--color-text)] opacity-70">
+        {{ $t("profile-information") }}
       </p>
     </header>
 
     <form @submit.prevent="form.patch(route('profile.update'))" class="space-y-6">
-
       <div>
-        <InputLabel for="name" class="text-skin-text">{{ $t('name') }}</InputLabel>
+        <InputLabel for="name" class="text-[var(--color-text)]">{{
+          $t("name")
+        }}</InputLabel>
         <TextInput
           id="name"
           type="text"
-          class="mt-1 block w-full bg-skin-fill text-skin-text placeholder-skin-text/50 border border-skin-fill rounded-md focus:ring-2 focus:ring-skin-primary focus:border-skin-primary transition-colors duration-200"
+          class="mt-1 block w-full bg-[var(--color-bg)] text-[var(--color-text)] placeholder-[var(--color-text)]/50 border border-[var(--color-fill)] rounded-md focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] transition-colors duration-200"
           v-model="form.name"
           required
           autofocus
           autocomplete="name"
         />
-        <InputError class="mt-2 text-skin-text opacity-70" :message="form.errors.name" />
+        <InputError
+          class="mt-2 text-[var(--color-text)] opacity-70"
+          :message="form.errors.name"
+        />
       </div>
 
       <!-- Email -->
       <div>
-        <InputLabel for="email" class="text-skin-text">{{ $t('email') }}</InputLabel>
+        <InputLabel for="email" class="text-[var(--color-text)]">{{
+          $t("email")
+        }}</InputLabel>
         <TextInput
           id="email"
           type="email"
-          class="mt-1 block w-full bg-skin-fill text-skin-text placeholder-skin-text/50 border border-skin-fill rounded-md focus:ring-2 focus:ring-skin-primary focus:border-skin-primary transition-colors duration-200"
+          class="mt-1 block w-full bg-[var(--color-bg)] text-[var(--color-text)] placeholder-[var(--color-text)]/50 border border-[var(--color-fill)] rounded-md focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] transition-colors duration-200"
           v-model="form.email"
           required
           autocomplete="username"
         />
-        <InputError class="mt-2 text-skin-text opacity-70" :message="form.errors.email" />
+        <InputError
+          class="mt-2 text-[var(--color-text)] opacity-70"
+          :message="form.errors.email"
+        />
       </div>
 
       <!-- Email verification -->
       <div v-if="mustVerifyEmail && user.email_verified_at === null">
-        <p class="mt-2 text-sm text-skin-text opacity-70">
-          {{ $t('unverified') }}
+        <p class="mt-2 text-sm text-[var(--color-text)] opacity-70">
+          {{ $t("unverified") }}
           <Link
             :href="route('verification.send')"
             method="post"
             as="button"
-            class="ml-1 underline text-skin-primary hover:opacity-70 transition-colors"
+            class="ml-1 underline text-[var(--color-primary)] hover:opacity-70 transition-colors"
           >
-            {{ $t('re-send') }}
+            {{ $t("re-send") }}
           </Link>
         </p>
 
         <div
           v-show="status === 'verification-link-sent'"
-          class="mt-2 text-sm font-medium text-skin-primary"
+          class="mt-2 text-sm font-medium text-[var(--color-primary)]"
         >
-          {{ $t('new-verification-link') }}
+          {{ $t("new-verification-link") }}
         </div>
       </div>
 
       <!-- Submit -->
       <div class="flex items-center gap-4">
-        <PrimaryButton :disabled="form.processing">{{ $t('save') }}</PrimaryButton>
+        <PrimaryButton :disabled="form.processing">{{ $t("save") }}</PrimaryButton>
 
         <Transition
           enter-active-class="transition ease-in-out"
@@ -89,7 +102,9 @@ const form = useForm({
           leave-active-class="transition ease-in-out"
           leave-to-class="opacity-0"
         >
-          <p v-if="form.recentlySuccessful" class="text-sm text-skin-primary">{{ $t('saved') }}</p>
+          <p v-if="form.recentlySuccessful" class="text-sm text-[var(--color-primary)]">
+            {{ $t("saved") }}
+          </p>
         </Transition>
       </div>
     </form>

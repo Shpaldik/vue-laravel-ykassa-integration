@@ -21,17 +21,17 @@ const page = usePage();
           <ResponsiveNavLink
             :href="route('dashboard')"
             class="text-skin-text hover:opacity-70 transition-colors"
-            >{{ $t('main')}}</ResponsiveNavLink
+            >{{ $t("main") }}</ResponsiveNavLink
           >
           <ResponsiveNavLink
             :href="route('dashboard')"
             class="text-skin-text hover:opacity-70 transition-colors"
-            >{{ $t('top-up')}}</ResponsiveNavLink
+            >{{ $t("top-up") }}</ResponsiveNavLink
           >
           <ResponsiveNavLink
             :href="route('profile.edit')"
             class="text-skin-text hover:opacity-70 transition-colors"
-            >{{ $t('profile')}}</ResponsiveNavLink
+            >{{ $t("profile") }}</ResponsiveNavLink
           >
         </div>
         <div class="border-t border-skin-fill pb-1 pt-4 px-4 transition-colors">
@@ -47,7 +47,7 @@ const page = usePage();
               method="post"
               as="button"
               class="text-skin-text hover:opacity-70 transition-colors"
-              >{{ $t('logout')}}</ResponsiveNavLink
+              >{{ $t("logout") }}</ResponsiveNavLink
             >
           </div>
         </div>
