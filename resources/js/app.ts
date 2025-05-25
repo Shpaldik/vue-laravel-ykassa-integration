@@ -9,7 +9,6 @@ import { useDark } from '@vueuse/core'
 import { VueReCaptcha } from 'vue-recaptcha-v3'
 import { createI18n } from 'vue-i18n'
 
-// JSON-словари из resources/lang, конвертированные плагином
 import en from '@/locale/en.json'
 import ru from '@/locale/ru.json'
 

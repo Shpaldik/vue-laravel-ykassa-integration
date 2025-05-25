@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
+import { usePage } from "@inertiajs/vue3";
 </script>
 
 <template>
@@ -25,4 +26,5 @@ import { Head } from "@inertiajs/vue3";
       </div>
     </div>
   </AuthenticatedLayout>
+  <div class="mt-8"></div>
 </template>

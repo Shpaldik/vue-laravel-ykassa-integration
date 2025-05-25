@@ -39,5 +39,11 @@ return [
         'site_key' => env('GOOGLE_RECAPTCHA_KEY'),
         'secret' => env('GOOGLE_RECAPTCHA_SECRET'),
     ],
+    'yookassa' => [
+        'shop_id'    => env('YOOKASSA_SHOP_ID'),
+        'secret_key' => env('YOOKASSA_SECRET_KEY'),
+        'min_amount' => env('YOOKASSA_MIN_AMOUNT', 50),
+    ],
+
 
 ];

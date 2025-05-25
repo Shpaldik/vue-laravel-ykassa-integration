@@ -7,6 +7,12 @@ import Dropdown from "./Dropdown.vue";
 import DropdownLink from "./DropdownLink.vue";
 import ResponsiveNavLink from "./ResponsiveNavLink.vue";
 import LanguageSwitcher from "./LanguageSwitcher.vue";
+import TopUpModal from "./TopUpModal.vue";
+
+const showTopUpModal = ref(false);
+const openTopUpModal = () => {
+  showTopUpModal.value = true;
+};
 
 const showingNavigationDropdown = ref(false);
 const page = usePage();
@@ -48,16 +54,23 @@ const page = usePage();
           <ThemeToggle />
 
           <template v-if="page.props.auth.user">
-            <div class="text-sm font-medium opacity-70">
+            <div class="text-sm font-medium opacity-70 flex items-center gap-4">
               {{ $t("balance") }} {{ page.props.auth.user.balance ?? 0 }} ₽
+              <button
+                @click="openTopUpModal"
+                class="btn-sm btn-primary"
+                title="Пополнить баланс"
+              >
+                +
+              </button>
             </div>
 
-            <button
-              class="px-4 py-2 bg-skin-primary text-white rounded-md hover:opacity-90 transition text-sm"
-              @click="$inertia.visit(route('dashboard'))"
-            >
-              {{ $t("top-up") }}
-            </button>
+            <TopUpModal
+              :show="showTopUpModal"
+              :minAmount="50"
+              :email="page.props.auth.user.email"
+              @close="showTopUpModal = false"
+            />
 
             <Dropdown align="right" width="48">
               <template #trigger>
@@ -135,7 +148,7 @@ const page = usePage();
       :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
       class="sm:hidden px-4 pb-4"
     >
-      <ToggleLang class="mb-2" />
+      <LanguageSwitcher />
       <ThemeToggle class="mb-4" />
 
       <template v-if="page.props.auth.user">

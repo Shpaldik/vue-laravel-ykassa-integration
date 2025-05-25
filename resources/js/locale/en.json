@@ -43,5 +43,9 @@
     "resend-verification": "Resend Verification Email",
     "verification-code-sent": "A fresh verification link has been sent to your email address.",
 
-    "Point": "Point"
+    "Point": "Point",
+    "Amount": "Amount",
+    "Cancel": "Cancel",
+    "Pay": "Pay",
+    "Payment": "Payment"
   }
