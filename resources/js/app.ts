@@ -12,9 +12,16 @@ import { createI18n } from 'vue-i18n'
 import en from '@/locale/en.json'
 import ru from '@/locale/ru.json'
 
-const appName      = import.meta.env.VITE_APP_NAME || 'Laravel'
-const browserLocale= (navigator.language || 'en').split('-')[0]
-const defaultLocale= localStorage.getItem('locale') || browserLocale
+type Locale = 'en' | 'ru'
+
+function isLocale(value: any): value is Locale {
+  return value === 'en' || value === 'ru'
+}
+
+const browserLocaleRaw = (navigator.language || 'en').split('-')[0]
+const localStorageLocaleRaw = localStorage.getItem('locale')
+const defaultLocaleRaw = localStorageLocaleRaw || browserLocaleRaw
+const defaultLocale = isLocale(defaultLocaleRaw) ? defaultLocaleRaw : 'en'
 
 const i18n = createI18n({
   legacy: false,
@@ -24,19 +31,19 @@ const i18n = createI18n({
 })
 
 createInertiaApp({
-  title: (title) => `${title} - ${appName}`,
+  title: (title) => `${title} - ${import.meta.env.VITE_APP_NAME || 'Laravel'}`,
   resolve: (name) =>
     resolvePageComponent(
       `./Pages/${name}.vue`,
       import.meta.glob<DefineComponent>('./Pages/**/*.vue')
     ),
   setup({ el, App, props, plugin }) {
-    const serverLocale     = props.initialPage.props.locale
-    const availableLocales = props.initialPage.props.available_locales
-
-    // Устанавливаем финальную локаль: из localStorage или от сервера
+    const serverLocaleRaw = props.initialPage.props.locale
+    const serverLocale = isLocale(serverLocaleRaw) ? serverLocaleRaw : 'en'
     const saved = localStorage.getItem('locale')
-    i18n.global.locale.value = saved || serverLocale
+    const finalLocale = isLocale(saved) ? saved : serverLocale
+
+    i18n.global.locale.value = finalLocale
 
     useDark({
       selector: 'html',
@@ -47,6 +54,9 @@ createInertiaApp({
     })
 
     const captchaKey = props.initialPage.props.recaptcha_site_key
+    if (typeof captchaKey !== 'string') {
+      throw new Error('Recaptcha siteKey is missing or invalid')
+    }
 
     const vueApp = createApp({ render: () => h(App, props) })
       .use(plugin)
@@ -60,8 +70,7 @@ createInertiaApp({
       .use(ZiggyVue)
       .use(i18n)
 
-    // Прокидываем список языков
-    vueApp.provide('availableLocales', availableLocales)
+    vueApp.provide('availableLocales', props.initialPage.props.available_locales)
 
     vueApp.mount(el)
   },

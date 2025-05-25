@@ -7,9 +7,21 @@ import TextInput from "@/Components/TextInput.vue";
 import { useReCaptcha } from "vue-recaptcha-v3";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 
-const { executeRecaptcha, recaptchaLoaded } = useReCaptcha();
+// Вместо деструктуризации сразу, сначала получаем результат, проверяем на undefined:
+const recaptcha = useReCaptcha();
+if (!recaptcha) {
+  throw new Error("ReCaptcha плагин не инициализирован");
+}
+const { executeRecaptcha, recaptchaLoaded } = recaptcha;
 
-const form = useForm({
+const form = useForm<{
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+  message: string | null;
+  captcha_token: string | null;
+}>({
   name: "",
   email: "",
   password: "",
@@ -19,6 +31,7 @@ const form = useForm({
 });
 
 const submit = async () => {
+  // Ждём, пока reCAPTCHA загрузится:
   await recaptchaLoaded();
   form.captcha_token = await executeRecaptcha("register");
   form.post(route("register"), {

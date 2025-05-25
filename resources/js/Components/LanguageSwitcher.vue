@@ -33,12 +33,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue";
+import { ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { usePage, router } from "@inertiajs/vue3";
 
-// Берём из Inertia‑пропсов
-const page = usePage<{ locale: string; available_locales: string[] }>();
+// Делаем auth.user любого типа (any), чтобы TS не ругался,
+// но тем самым пропускаем валидацию структуры User.
+type PageProps = {
+  auth: { user: any };
+  locale: string;
+  available_locales: string[];
+};
+
+const page = usePage<PageProps>();
 
 const available = page.props.available_locales;
 const { locale } = useI18n();
@@ -48,17 +55,15 @@ const { locale } = useI18n();
 const saved = localStorage.getItem("locale");
 const current = ref<string>(saved || page.props.locale);
 
-//  Синхронизируем изменение селекта с vue‑i18n
+// Синхронизируем изменение селекта с vue-i18n
 watch(current, (val) => {
   locale.value = val;
 });
 
-// Если вдруг Inertia‑проп locale поменяется (редкий кейс),
-// тоже обновим current
+// Если Inertia-проп locale поменяется (редкий кейс), обновим current
 watch(
   () => page.props.locale,
   (newServerLocale) => {
-    // но только если в LS ничего нет
     if (!localStorage.getItem("locale")) {
       current.value = newServerLocale;
     }
@@ -70,7 +75,7 @@ function switchLocale() {
   // Сохраняем выбор в localStorage
   localStorage.setItem("locale", newLoc);
 
-  // Обновляем сессию на сервере, а потом «докаем» Inertia‑проп
+  // Обновляем сессию на сервере, а потом «докаем» Inertia-проп
   router.post(
     route("locale.switch"),
     { locale: newLoc },

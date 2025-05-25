@@ -38,9 +38,13 @@ import { ref } from "vue";
 import Modal from "@/Components/Modal.vue";
 
 const emit = defineEmits(["close"]);
-const props = defineProps<{ show: boolean; minAmount: number; email: string }>();
+const props = defineProps<{
+  show: boolean;
+  minAmount: number;
+  email: string;
+}>();
 
-const form = useForm({
+const form = useForm<{ amount: number; email: string }>({
   amount: props.minAmount,
   email: props.email,
 });
@@ -53,11 +57,17 @@ function close() {
 
 function submit() {
   processing.value = true;
-  router.post(route("balance.topup"), form, {
-    preserveScroll: true,
-    onFinish: () => {
-      processing.value = false;
-    },
-  });
+  // Важное изменение: вызываем form.data() как функцию,
+  // чтобы получить plain JS-объект, а не сам InertiaForm.
+  router.post(
+    route("balance.topup"),
+    form.data(), // ← form.data() вместо form.data
+    {
+      preserveScroll: true,
+      onFinish: () => {
+        processing.value = false;
+      },
+    }
+  );
 }
 </script>

@@ -15,7 +15,22 @@ const openTopUpModal = () => {
 };
 
 const showingNavigationDropdown = ref(false);
-const page = usePage();
+// Явно указываем тип PageProps, чтобы TS видел поле auth.user.balance:
+type PageProps = {
+  auth: {
+    user: {
+      id: number;
+      name: string;
+      email: string;
+      balance?: number; // добавили balance (опционально)
+      // … если есть другие поля User
+    };
+  };
+  locale: string;
+  available_locales: string[];
+};
+
+const page = usePage<PageProps>();
 </script>
 
 <template>
@@ -55,7 +70,8 @@ const page = usePage();
 
           <template v-if="page.props.auth.user">
             <div class="text-sm font-medium opacity-70 flex items-center gap-4">
-              {{ $t("balance") }} {{ page.props.auth.user.balance ?? 0 }} ₽
+              {{ $t("balance") }}
+              {{ page.props.auth.user.balance ?? 0 }} ₽
               <button
                 @click="openTopUpModal"
                 class="btn-sm btn-primary"
