@@ -38,7 +38,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/balance/top-up', [BalanceController::class, 'createPayment'])->name('balance.topup');
-Route::get('/yookassa/success', [BalanceController::class, 'success'])->name('yookassa.success');
+    Route::get('/yookassa/success', [BalanceController::class, 'success'])
+         ->name('yookassa.success');
 Route::post('/yookassa/webhook', [WebhookController::class, 'handle'])->withoutMiddleware([\Illuminate\Session\Middleware\StartSession::class]);
 
 

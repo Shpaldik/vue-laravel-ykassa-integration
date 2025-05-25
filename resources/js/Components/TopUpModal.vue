@@ -32,9 +32,8 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps } from "vue";
+import { defineEmits, defineProps, ref } from "vue";
 import { useForm, router } from "@inertiajs/vue3";
-import { ref } from "vue";
 import Modal from "@/Components/Modal.vue";
 
 const emit = defineEmits(["close"]);
@@ -44,6 +43,7 @@ const props = defineProps<{
   email: string;
 }>();
 
+// Инициализируем Inertia-форму (InertiaForm)
 const form = useForm<{ amount: number; email: string }>({
   amount: props.minAmount,
   email: props.email,
@@ -57,17 +57,16 @@ function close() {
 
 function submit() {
   processing.value = true;
-  // Важное изменение: вызываем form.data() как функцию,
-  // чтобы получить plain JS-объект, а не сам InertiaForm.
-  router.post(
-    route("balance.topup"),
-    form.data(), // ← form.data() вместо form.data
-    {
-      preserveScroll: true,
-      onFinish: () => {
-        processing.value = false;
-      },
-    }
-  );
+
+  // POST через Inertia; createPayment вернет Inertia::location(...),
+  // фронтенд сама перенаправит браузер.
+  router.post(route("balance.topup"), form.data(), {
+    onFinish: () => {
+      processing.value = false;
+    },
+    onError: () => {
+      processing.value = false;
+    },
+  });
 }
 </script>
