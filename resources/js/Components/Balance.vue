@@ -17,8 +17,7 @@ type PageProps = {
       id: number;
       name: string;
       email: string;
-      balance?: number; // добавили balance (опционально)
-      // … если есть другие поля User
+      balance?: number;
     };
   };
   locale: string;

@@ -5,7 +5,7 @@
 
       <form @submit.prevent="submit">
         <label class="block mb-2 text-sm">
-          {{ $t("Amount") }} (мин: {{ minAmount }})
+          {{ $t("Amount") }} ({{ $t("Min") }}: {{ minAmount }})
         </label>
         <input
           type="number"

@@ -3,7 +3,7 @@
   <div class="flex items-center gap-4">
     <button
       @click="openTopUpModal"
-      class="inline-block px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg transition hover:opacity-90 focus:outline-none focus:ring focus:ring-[var(--color-primary)]"
+      class="inline-block px-4 py-2"
       title="Пополнить баланс"
     >
       {{ $t("top-up") }}

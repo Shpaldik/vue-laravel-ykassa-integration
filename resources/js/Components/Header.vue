@@ -7,7 +7,6 @@ import Dropdown from "./Dropdown.vue";
 import DropdownLink from "./DropdownLink.vue";
 import ResponsiveNavLink from "./ResponsiveNavLink.vue";
 import LanguageSwitcher from "./LanguageSwitcher.vue";
-import TopUpModal from "./TopUpModal.vue";
 import Balance from "./Balance.vue";
 import TopUp from "./TopUp.vue";
 
@@ -21,15 +20,13 @@ const openTopUpModal = () => {
 };
 
 const showingNavigationDropdown = ref(false);
-// Явно указываем тип PageProps, чтобы TS видел поле auth.user.balance:
 type PageProps = {
   auth: {
     user: {
       id: number;
       name: string;
       email: string;
-      balance?: number; // добавили balance (опционально)
-      // … если есть другие поля User
+      balance?: number;
     };
   };
   locale: string;
@@ -39,67 +36,68 @@ type PageProps = {
 
 <template>
   <header
-    class="w-full border-b border-skin-fill bg-skin-bg text-skin-text transition-colors"
+    class="w-full border-b border-skin-fill bg-skin-bg text-[var(--color-text)] transition-colors"
   >
     <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center">
-        <!-- Логотип -->
-        <div class="flex items-center gap-20">
+        <div class="flex items-center gap-6 lg:gap-10">
           <ApplicationLogo />
 
-          <Link
-            :href="route('dashboard')"
-            class="text-sm text-skin-muted dark:text-skin-muted hover:text-skin-primary dark:hover:text-skin-primary transition duration-300"
-          >
-            {{ $t("Point") }} 1
-          </Link>
-          <Link
-            :href="route('dashboard')"
-            class="text-sm text-skin-muted dark:text-skin-muted hover:text-skin-primary dark:hover:text-skin-primary transition duration-300"
-          >
-            {{ $t("Point") }} 2
-          </Link>
-          <Link
-            :href="route('dashboard')"
-            class="text-sm text-skin-muted dark:text-skin-muted hover:text-skin-primary dark:hover:text-skin-primary transition duration-300"
-          >
-            {{ $t("Point") }} 3
-          </Link>
+          <nav class="hidden md:flex items-center gap-4 lg:gap-6">
+            <Link
+              :href="route('dashboard')"
+              class="text-sm hover:text-skin-primary transition duration-300"
+            >
+              {{ $t("Point") }} 1
+            </Link>
+            <Link
+              :href="route('dashboard')"
+              class="text-sm hover:text-skin-primary transition duration-300"
+            >
+              {{ $t("Point") }} 2
+            </Link>
+            <Link
+              :href="route('dashboard')"
+              class="text-sm hover:text-skin-primary transition duration-300"
+            >
+              {{ $t("Point") }} 3
+            </Link>
+          </nav>
         </div>
 
-        <!-- ПК-навигация -->
-        <div class="hidden sm:flex items-center gap-6">
+        <div class="hidden sm:flex items-center gap-4 lg:gap-6">
           <LanguageSwitcher />
           <ThemeToggle />
 
           <template v-if="page.props.auth.user">
-            <div class="text-sm font-medium opacity-70 flex items-center gap-4">
+            <div class="flex items-center gap-3 text-sm font-medium opacity-70">
               <Balance />
-              <TopUp />
             </div>
 
             <Dropdown align="right" width="48">
               <template #trigger>
-                <span class="inline-flex rounded-md">
-                  <button
-                    type="button"
-                    class="inline-flex items-center rounded-md bg-skin-bg px-3 py-2 text-sm font-medium text-skin-text hover:opacity-80"
-                  >
-                    {{ page.props.auth.user.name }}
-                    <svg class="ml-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        fill-rule="evenodd"
-                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.293l3.71-4.06a.75.75 0 111.08 1.04l-4.25 4.65a.75.75 0 01-1.08 0l-4.25-4.65a.75.75 0 01.02-1.06z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </button>
-                </span>
+                <button
+                  type="button"
+                  class="inline-flex items-center rounded-md bg-skin-bg px-3 py-2 text-sm font-medium text-skin-text hover:opacity-80"
+                >
+                  {{ page.props.auth.user.name }}
+                  <svg class="ml-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.293l3.71-4.06a.75.75 0 111.08 1.04l-4.25 4.65a.75.75 0 01-1.08 0l-4.25-4.65a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
               </template>
 
               <template #content>
                 <DropdownLink :href="route('profile.edit')">{{
                   $t("profile")
+                }}</DropdownLink>
+                <TopUp />
+                <DropdownLink :href="route('dashboard')">{{
+                  $t("TransactionHistory")
                 }}</DropdownLink>
                 <DropdownLink :href="route('logout')" method="post" as="button">{{
                   $t("logout")
@@ -109,18 +107,19 @@ type PageProps = {
           </template>
 
           <template v-else>
-            <Link :href="route('login')" class="hover:opacity-70">{{ $t("login") }}</Link>
-            <Link :href="route('register')" class="hover:opacity-70">{{
+            <Link :href="route('login')" class="text-sm hover:opacity-70">{{
+              $t("login")
+            }}</Link>
+            <Link :href="route('register')" class="text-sm hover:opacity-70">{{
               $t("register")
             }}</Link>
           </template>
         </div>
 
-        <!-- Мобильный бургер -->
         <div class="sm:hidden">
           <button
             @click="showingNavigationDropdown = !showingNavigationDropdown"
-            class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500"
+            class="inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-100 hover:text-gray-500"
           >
             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
               <path
@@ -149,35 +148,34 @@ type PageProps = {
       </div>
     </div>
 
-    <!-- Мобильное меню -->
     <div
       :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
-      class="sm:hidden px-4 pb-4"
+      class="sm:hidden px-4 pb-4 space-y-4"
     >
-      <LanguageSwitcher />
-      <ThemeToggle class="mb-4" />
+      <div class="flex items-center gap-4">
+        <LanguageSwitcher />
+        <ThemeToggle />
+      </div>
 
       <template v-if="page.props.auth.user">
-        <div class="text-base font-medium">{{ page.props.auth.user.name }}</div>
-        <div class="text-sm text-gray-600">{{ page.props.auth.user.email }}</div>
+        <div class="space-y-1">
+          <div class="text-base font-medium">{{ page.props.auth.user.name }}</div>
+          <div class="text-sm">{{ page.props.auth.user.email }}</div>
 
-        <div class="mt-4 space-y-1">
-          <!-- Пункты 1, 2, 3 для мобильной версии с цифрами -->
-          <ResponsiveNavLink :href="route('dashboard')">1</ResponsiveNavLink>
-          <ResponsiveNavLink :href="route('dashboard')">2</ResponsiveNavLink>
-          <ResponsiveNavLink :href="route('dashboard')">3</ResponsiveNavLink>
-          <ResponsiveNavLink :href="route('dashboard')">{{
-            $t("main")
-          }}</ResponsiveNavLink>
-          <ResponsiveNavLink :href="route('dashboard')">{{
-            $t("top-up")
-          }}</ResponsiveNavLink>
-          <ResponsiveNavLink :href="route('profile.edit')">{{
-            $t("profile")
-          }}</ResponsiveNavLink>
-          <ResponsiveNavLink :href="route('logout')" method="post" as="button">{{
-            $t("logout")
-          }}</ResponsiveNavLink>
+          <div class="mt-2 space-y-1">
+            <ResponsiveNavLink :href="route('dashboard')">1</ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('dashboard')">2</ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('dashboard')">3</ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('dashboard')">{{
+              $t("main")
+            }}</ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('profile.edit')">{{
+              $t("profile")
+            }}</ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('logout')" method="post" as="button">{{
+              $t("logout")
+            }}</ResponsiveNavLink>
+          </div>
         </div>
       </template>
 

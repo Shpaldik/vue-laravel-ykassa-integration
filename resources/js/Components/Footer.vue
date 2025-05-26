@@ -5,7 +5,9 @@ import { Link } from "@inertiajs/vue3";
 <template>
   <footer class="bg-skin-bg dark:bg-skin-fill text-skin-text dark:text-skin-muted py-6">
     <div class="max-w-7xl mx-auto px-6">
-      <p class="text-center text-lg text-skin-text dark:text-skin-muted">Демо сервис</p>
+      <p class="text-center text-lg text-skin-text dark:text-skin-muted">
+        {{ $t("Demo") }}
+      </p>
       <div class="flex justify-center mt-4 space-x-6">
         <Link
           :href="route('dashboard')"

@@ -47,5 +47,14 @@
     "Amount": "Amount",
     "Cancel": "Cancel",
     "Pay": "Pay",
-    "Payment": "Payment"
+    "Min": "Min",
+    "Payment": "Payment",
+    "Last": "Last transactions",
+    "Date": "Date",
+    "Previous": "Previous",
+    "Next": "Next",
+    "Page": "Page",
+    "From": "from",
+    "TransactionHistory": "Transaction History",
+    "Demo": "Demo"
   }

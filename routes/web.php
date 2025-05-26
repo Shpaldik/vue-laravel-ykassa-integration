@@ -4,11 +4,13 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-use Inertia\Inertia;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\PaymentController;
+use Illuminate\Http\Request;
+use App\Models\Transaction;
+use Inertia\Inertia;
 
 
 Route::get('/', function () {
@@ -28,10 +30,20 @@ Route::post('/locale', function () {
 })->name('locale.switch');
 
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function (Request $request) {
+    // Получаем авторизованного пользователя
+    $user = $request->user();
 
+    // Берём последние 10 транзакций (пополнений) текущего пользователя
+    $transactions = $user->transactions()
+                         ->orderBy('created_at', 'desc')
+                         ->paginate(10);
+
+    // Передаём пагинатор в Inertia
+    return Inertia::render('Dashboard', [
+        'transactions' => $transactions,
+    ]);
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile',   [ProfileController::class, 'edit'])->name('profile.edit');
