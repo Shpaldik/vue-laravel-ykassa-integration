@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { Link, usePage } from "@inertiajs/vue3";
 import ThemeToggle from "./ThemeToggle.vue";
 import ApplicationLogo from "./ApplicationLogo.vue";
@@ -8,6 +8,10 @@ import DropdownLink from "./DropdownLink.vue";
 import ResponsiveNavLink from "./ResponsiveNavLink.vue";
 import LanguageSwitcher from "./LanguageSwitcher.vue";
 import TopUpModal from "./TopUpModal.vue";
+
+const page = usePage();
+
+import { router } from "@inertiajs/vue3";
 
 const showTopUpModal = ref(false);
 const openTopUpModal = () => {
@@ -29,8 +33,6 @@ type PageProps = {
   locale: string;
   available_locales: string[];
 };
-
-const page = usePage<PageProps>();
 </script>
 
 <template>
@@ -71,7 +73,7 @@ const page = usePage<PageProps>();
           <template v-if="page.props.auth.user">
             <div class="text-sm font-medium opacity-70 flex items-center gap-4">
               {{ $t("balance") }}
-              {{ page.props.auth.user.balance ?? 0 }} ₽
+              <p class="text-lg">Ваш баланс: {{ page.props.auth.user.balance ?? 0 }} ₽</p>
               <button
                 @click="openTopUpModal"
                 class="btn-sm btn-primary"

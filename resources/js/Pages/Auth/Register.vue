@@ -31,14 +31,28 @@ const form = useForm<{
 });
 
 const submit = async () => {
-  // Ждём, пока reCAPTCHA загрузится:
-  await recaptchaLoaded();
-  form.captcha_token = await executeRecaptcha("register");
-  form.post(route("register"), {
-    onFinish: () => {
-      form.reset("password", "password_confirmation");
-    },
-  });
+  try {
+    await recaptchaLoaded();
+    const token = await executeRecaptcha("register");
+
+    if (!token) {
+      form.errors.captcha_token = "Не удалось получить reCAPTCHA токен.";
+      return;
+    }
+
+    form.captcha_token = token;
+
+    await form.post(route("register"), {
+      onFinish: () => {
+        form.reset("password", "password_confirmation");
+      },
+      onError: (errors) => {
+        console.error("Form submission errors:", errors);
+      },
+    });
+  } catch (error) {
+    console.error("Ошибка при регистрации:", error);
+  }
 };
 </script>
 

@@ -40,7 +40,8 @@ Route::middleware('auth')->group(function () {
 Route::post('/balance/top-up', [BalanceController::class, 'createPayment'])->name('balance.topup');
     Route::get('/yookassa/success', [BalanceController::class, 'success'])
          ->name('yookassa.success');
-Route::post('/yookassa/webhook', [WebhookController::class, 'handle'])->withoutMiddleware([\Illuminate\Session\Middleware\StartSession::class]);
+Route::post('/webhook/yookassa', [WebhookController::class, 'handle']);
+Route::middleware('auth:sanctum')->get('/user/balance', [ProfileController::class, 'balance']);
 
 
 require __DIR__.'/auth.php';

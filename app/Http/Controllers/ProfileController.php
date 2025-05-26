@@ -60,4 +60,11 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function balance(Request $request)
+    {
+        return response()->json([
+            'balance' => $request->user()->balance,
+        ]);
+    }
 }

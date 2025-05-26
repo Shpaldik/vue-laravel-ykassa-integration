@@ -51,13 +51,28 @@ class BalanceController extends Controller
         return Inertia::location($confirmationUrl);
     }
 
-     public function success(Request $request, $user )
-    {
-        $user = auth()->user()->fresh();
+     public function success(Request $request)
+        {
+            $user = auth()->user();
 
-        return Inertia::render('PaymentSuccess', [
-            'message' => 'Ваш платёж успешно проведён!',
-        ]);
+            // Получаем все успешные платежи пользователя
+            $transactions = $user->transactions()->where('status', 'pending')->get();
 
-    }
+            $total = 0;
+
+            foreach ($transactions as $transaction) {
+                $total += $transaction->amount;
+                $transaction->status = 'succeeded';
+                $transaction->save();
+            }
+
+            // Обновляем баланс пользователя
+            $user->balance += $total;
+            $user->save();
+
+            return Inertia::render('PaymentSuccess', [
+                'message' => 'Ваш платёж успешно проведён!',
+            ]);
+        }
+
 }

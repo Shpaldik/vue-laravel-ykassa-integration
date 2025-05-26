@@ -18,7 +18,7 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
-            'auth'              => ['user' => $request->user()],
+            'auth'              => ['user' => $request->user()?->fresh()],
             'recaptcha_site_key'=> config('services.google_recaptcha.site_key'),
             'locale'            => App::getLocale(),
             'available_locales' => config('app.available_locales', ['en','ru']),

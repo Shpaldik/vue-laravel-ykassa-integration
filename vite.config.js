@@ -3,7 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-    base: 'https://c18a-85-92-123-209.ngrok-free.app/',
+    base: 'https://d975-85-92-123-209.ngrok-free.app',
     plugins: [
         laravel({
             input: 'resources/js/app.ts',
