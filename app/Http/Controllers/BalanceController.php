@@ -6,10 +6,37 @@ use Illuminate\Http\Request;
 use YooKassa\Client;
 use App\Models\Transaction;
 use Inertia\Inertia;
-use App\Models\User;
 
 class BalanceController extends Controller
 {
+    /**
+     * Показывает Inertia-страницу «Баланс» со всеми данными:
+     *  - текущий баланс пользователя ($user->balance),
+     *  - форма пополнения (минимум из config),
+     *  - последние 10 транзакций (постранично).
+     */
+    public function index(Request $request)
+    {
+        /** @var \App\Models\User $user */
+        $user = $request->user()->load(['transactions' => function($q) {
+            // последние 10 операций, по дате DESC
+            $q->orderBy('created_at', 'desc')->paginate(10);
+        }]);
+
+        // минимальная сумма в конфиге: config('services.yookassa.min_amount')
+        $minAmount = config('services.yookassa.min_amount');
+
+        return Inertia::render('Balance/Index', [
+            'user'       => $user,
+            'transactions'=> $user->transactions, // здесь лежит LengthAwarePaginator
+            'minAmount'  => $minAmount,
+        ]);
+    }
+
+    /**
+     * Создаёт платёж в YooKassa и сохраняет транзакцию со статусом pending.
+     * Затем выполняет редирект браузера на confirmation_url.
+     */
     public function createPayment(Request $request)
     {
         $request->validate([
@@ -17,7 +44,6 @@ class BalanceController extends Controller
             'email'  => 'required|email',
         ]);
 
-        /** @var \App\Models\User $user */
         $user   = $request->user();
         $amount = number_format($request->amount, 2, '.', '');
 
@@ -37,42 +63,19 @@ class BalanceController extends Controller
             'description'  => 'Пополнение баланса ' . $user->email,
         ], uniqid('', true));
 
-        // Сохраняем запись о транзакции в БД
+        // Сохраняем транзакцию с привязкой к пользователю:
         Transaction::create([
             'user_id'             => $user->id,
             'yookassa_payment_id' => $payment->getId(),
             'amount'              => $amount,
             'currency'            => 'RUB',
-            'status'              => $payment->getStatus(),
+            'status'              => $payment->getStatus(), // чаще всего "pending"
         ]);
 
-        // Вместо обычного redirect() для Inertia используем Inertia::location()
+        // Редирект на страницу оплаты YooKassa:
         $confirmationUrl = $payment->getConfirmation()->getConfirmationUrl();
+
+        // Inertia::location() даёт полноценный JS-редирект:
         return Inertia::location($confirmationUrl);
     }
-
-     public function success(Request $request)
-        {
-            $user = auth()->user();
-
-            // Получаем все успешные платежи пользователя
-            $transactions = $user->transactions()->where('status', 'pending')->get();
-
-            $total = 0;
-
-            foreach ($transactions as $transaction) {
-                $total += $transaction->amount;
-                $transaction->status = 'succeeded';
-                $transaction->save();
-            }
-
-            // Обновляем баланс пользователя
-            $user->balance += $total;
-            $user->save();
-
-            return Inertia::render('PaymentSuccess', [
-                'message' => 'Ваш платёж успешно проведён!',
-            ]);
-        }
-
 }

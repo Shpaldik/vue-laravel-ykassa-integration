@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2);
             $table->string('currency')->default('RUB');
             $table->string('status');
+            $table->index('created_at');
             $table->timestamps();
         });
     }

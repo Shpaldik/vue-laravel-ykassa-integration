@@ -8,6 +8,8 @@ import DropdownLink from "./DropdownLink.vue";
 import ResponsiveNavLink from "./ResponsiveNavLink.vue";
 import LanguageSwitcher from "./LanguageSwitcher.vue";
 import TopUpModal from "./TopUpModal.vue";
+import Balance from "./Balance.vue";
+import TopUp from "./TopUp.vue";
 
 const page = usePage();
 
@@ -72,23 +74,9 @@ type PageProps = {
 
           <template v-if="page.props.auth.user">
             <div class="text-sm font-medium opacity-70 flex items-center gap-4">
-              {{ $t("balance") }}
-              <p class="text-lg">Ваш баланс: {{ page.props.auth.user.balance ?? 0 }} ₽</p>
-              <button
-                @click="openTopUpModal"
-                class="btn-sm btn-primary"
-                title="Пополнить баланс"
-              >
-                +
-              </button>
+              <Balance />
+              <TopUp />
             </div>
-
-            <TopUpModal
-              :show="showTopUpModal"
-              :minAmount="50"
-              :email="page.props.auth.user.email"
-              @close="showTopUpModal = false"
-            />
 
             <Dropdown align="right" width="48">
               <template #trigger>

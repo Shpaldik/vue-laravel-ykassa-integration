@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\PaymentController;
 
 
 Route::get('/', function () {
@@ -35,13 +37,29 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile',   [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile',[ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+     Route::get('/balance', [BalanceController::class, 'index'])
+         ->name('balance.index');
+
+    // 2) Создать платёж → редирект на YooKassa:
+    Route::post('/balance/top-up', [BalanceController::class, 'createPayment'])
+         ->name('balance.topup');
+
+    // 3) Return URL — куда YooKassa возвращает пользователя:
+    Route::get('/yookassa/success', [PaymentController::class, 'success'])
+         ->name('yookassa.success');
+
+    // 4) Получить JSON: текущий баланс (нужно, если хотим динамику через fetch/Axios):
+    Route::get('/api/user/balance', [ProfileController::class, 'balance'])
+         ->middleware('auth:sanctum'); 
+
+    // 5) Список транзакций (Inertia-страница или JSON? сделаем Inertia):
+    Route::get('/transactions', [TransactionController::class, 'index'])
+         ->name('transactions.index');
 });
 
-Route::post('/balance/top-up', [BalanceController::class, 'createPayment'])->name('balance.topup');
-    Route::get('/yookassa/success', [BalanceController::class, 'success'])
-         ->name('yookassa.success');
-Route::post('/webhook/yookassa', [WebhookController::class, 'handle']);
-Route::middleware('auth:sanctum')->get('/user/balance', [ProfileController::class, 'balance']);
-
+Route::post('/webhook/yookassa', [WebhookController::class, 'handle'])
+     ->name('webhook.yookassa');
 
 require __DIR__.'/auth.php';
