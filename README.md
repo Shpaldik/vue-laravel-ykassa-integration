@@ -1,61 +1,136 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Инструкция по запуску:
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Системные требования
 
-## About Laravel
+* PHP >= 8.1
+* Composer >= 2.0
+* Node.js >= 18.x и npm или yarn
+* MySQL >= 8.0
+* Web-сервер (например, Nginx или Apache)
+* Расширения PHP: mbstring, bcmath, ctype, json, openssl, pdo, tokenizer, xml, fileinfo
+* Laravel Framework 12.9.0 ( поддержка до 24 февраля 2027 года ) 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+ДЛЯ СПРАВКИ:
+- Laravel 12 — самая свежая версия с актуальными исправлениями безопасности и улучшениями. В отличие от устаревших LTS-версий (например, Laravel 6, 8, 9, 10), она поддерживает последние версии PHP и сторонних библиотек, что снижает риски уязвимостей
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Установка зависимостей
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. Клонировать репозиторий:
 
-## Learning Laravel
+   git clone <url_репозитория>
+   cd <папка_проекта>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. Установить PHP-зависимости через Composer:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+   composer install
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. Установить JS-зависимости:
 
-## Laravel Sponsors
+   npm install
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Настройка `.env`
 
-### Premium Partners
+1. Создать копию файла:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+   cp .env.example .env
 
-## Contributing
+2. Сгенерировать ключ приложения:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   php artisan key:generate
 
-## Code of Conduct
+3. Настроить параметры подключения к базе данных в `.env`:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=имя бд
+   DB_USERNAME=root или если создали нового пользователя, впишите его имя
+   DB_PASSWORD=пароль
+   ```
 
-## Security Vulnerabilities
+4. Настроить SMTP для соединения почты:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+   MAIL_MAILER=smtp
+    MAIL_HOST=smtp.mail.ru - аналогично можно использовать другие доменные почты( на офф сайтах можно найти документацию по привязке )
+    MAIL_PORT=465 
+    MAIL_USERNAME=вашапочта
+    MAIL_PASSWORD=ваш пароль
+    MAIL_ENCRYPTION=ssl
+    MAIL_FROM_ADDRESS=вашапочта
+    MAIL_FROM_NAME="${APP_NAME}"
 
-## License
+5. Настройка капчи
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   - Заходим сюда - https://cloud.google.com/security/products/recaptcha
+   - Нажимаем на кнопку начать
+   - Выбираем поле - с использованием оценок (v3) !!!
+   - При настройке вводим ссылку и домен сайта
+   - Копируем ключ и секретный пароль и вставляем сюда - 
+      GOOGLE_RECAPTCHA_KEY=ключ
+      GOOGLE_RECAPTCHA_SECRET=пароль
+
+6. Настройка юкассы
+
+  - Создаете тестовый магазин ( вставляете ссылку на домен сайта для доступа )
+  - Для настройки вебхуков заходим сюда
+   - В категорий "Интеграция" заходим в HTTP уведомлений
+   - Нажимаем на кнопку "поменять настройки"
+   - Внутри пишем вашсайт/webhook/yookassa
+   - сохраняем настройки
+
+7. Настройка тем
+   - переходим на файл tailwind.config.js
+   - после увидите список цветов по темам blue и dark и root( цвет белой темы )
+
+## Команды запуска проекта
+
+1. Выполнить миграции:
+
+   - php artisan migrate 
+
+2. Если хотите сразу полностью проверить проект без хостинга, используйте ngrok
+
+   - Скачайте приложения с сайта - https://ngrok/
+   - Запустите .exe файл через администратора
+   - В консольке введите - ngrok http 8000
+   - Скопируйте ссылку в .env в поле APP_URL=
+   - Откройте файл vite.config.js и сделайте тоже самое в этом поле:
+      base: 'ссылка',
+   - пример ссылки: https://06ed-85-92-123-209.ngrok-free.app
+
+3. Запустить локальный сервер Laravel:
+
+   - php artisan serve
+
+4. Запустить сборку фронтенда (с автообновлением):
+
+   - npm run dev
+
+5. Для продакшена собрать оптимизированные ассеты:
+
+   - npm run build
+
+## Обновление зависимостей и плагинов
+
+* Для обновления PHP-зависимостей:
+
+  composer update
+
+
+* Для обновления JS-зависимостей:
+
+  - npm update
+
+
+* После обновления рекомендуется пересобрать фронтенд:
+
+  - npm run build
+
+
+* Если появились новые миграции, применить их:
+
+  - php artisan migrate
+
+
