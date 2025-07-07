@@ -32,7 +32,6 @@ cp .env.example .env
 php artisan key:generate
    
 3.	Set up your database connection in .env:
-   
 - DB_CONNECTION=mysql
 - DB_HOST=127.0.0.1
 - DB_PORT=3306
@@ -82,20 +81,18 @@ o	Download ngrok from: https://ngrok.com
 o	Run the .exe file as Administrator
 o	In the terminal, type:
     ngrok http 8000
-  	
-2.	
 o	Copy the generated URL and update your .env:
-APP_URL=https://your-ngrok-url.ngrok-free.app
+    APP_URL=https://your-ngrok-url.ngrok-free.app
 o	Also update vite.config.js:
-base: 'https://your-ngrok-url.ngrok-free.app',
+    base: 'https://your-ngrok-url.ngrok-free.app',
 
-4.	Start the Laravel development server:
+3. Start the Laravel development server:
 php artisan serve
 
-6.	Run the frontend dev server (with hot reload):
+4. Run the frontend dev server (with hot reload):
 npm run dev
 
-8.	For production build (optimized assets):
+5. For production build (optimized assets):
 npm run build
 
  
