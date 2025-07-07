@@ -33,23 +33,22 @@ php artisan key:generate
    
 3.	Set up your database connection in .env:
    
-   
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=your_database_name
-DB_USERNAME=root (or the username you created)
-DB_PASSWORD=your_password
+- DB_CONNECTION=mysql
+- DB_HOST=127.0.0.1
+- DB_PORT=3306
+- DB_DATABASE=your_database_name
+- DB_USERNAME=root (or the username you created)
+- DB_PASSWORD=your_password
    
 4.	Configure SMTP for email:
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.mail.ru (or another provider—check official docs)
-MAIL_PORT=465
-MAIL_USERNAME=your_email
-MAIL_PASSWORD=your_password
-MAIL_ENCRYPTION=ssl
-MAIL_FROM_ADDRESS=your_email
-MAIL_FROM_NAME="${APP_NAME}"
+- MAIL_MAILER=smtp
+- MAIL_HOST=smtp.mail.ru (or another provider—check official docs)
+- MAIL_PORT=465
+- MAIL_USERNAME=your_email
+- MAIL_PASSWORD=your_password
+- MAIL_ENCRYPTION=ssl
+- MAIL_FROM_ADDRESS=your_email
+- MAIL_FROM_NAME="${APP_NAME}"
    
 5.	Set up reCAPTCHA:
 o	Go to Google reCAPTCHA
@@ -57,16 +56,17 @@ o	Click “Get Started”
 o	Choose v3 (Score-based reCAPTCHA)
 o	Add your site domain
 o	Copy your site key and secret key into .env:
-GOOGLE_RECAPTCHA_KEY=your_key
-GOOGLE_RECAPTCHA_SECRET=your_secret
+
+- GOOGLE_RECAPTCHA_KEY=your_key
+- GOOGLE_RECAPTCHA_SECRET=your_secret
 
    
-6.	Set up YooKassa (Payment):
+7.	Set up YooKassa (Payment):
 o	Create a test store and add your domain
 o	Go to Integration > HTTP notifications
 o	Click “Change Settings”
 o	Set the URL to:
-yoursite.com/webhook/yookassa
+    yoursite.com/webhook/yookassa
 o	Save the settings
 
 8.	Configure themes:
@@ -82,16 +82,20 @@ o	Download ngrok from: https://ngrok.com
 o	Run the .exe file as Administrator
 o	In the terminal, type:
     ngrok http 8000
+  	
 2.	
 o	Copy the generated URL and update your .env:
 APP_URL=https://your-ngrok-url.ngrok-free.app
 o	Also update vite.config.js:
 base: 'https://your-ngrok-url.ngrok-free.app',
-3.	Start the Laravel development server:
+
+4.	Start the Laravel development server:
 php artisan serve
-4.	Run the frontend dev server (with hot reload):
+
+6.	Run the frontend dev server (with hot reload):
 npm run dev
-5.	For production build (optimized assets):
+
+8.	For production build (optimized assets):
 npm run build
 
  
