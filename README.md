@@ -1,4 +1,4 @@
-[![Watch Demo]([https://ibb.co/TxNfWtwd)](https://vimeo.com/1099360143)
+<video src="[https://user-images.githubusercontent.com/12345678/yourfile.mp4](https://github.com/user-attachments/assets/017cc6b0-be81-47a0-b6ba-245509cfbde7)" controls width="100%" />
 
 Setup Guide
 
