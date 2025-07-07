@@ -1,7 +1,3 @@
-<video src="https://github.com/user-attachments/assets/017cc6b0-be81-47a0-b6ba-245509cfbde7" controls width="100%" />
-
-<!-- 👇-->
-
 ## Setup Guide
 
 
@@ -116,5 +112,11 @@ npm run build
 php artisan migrate
 
  
+
+
+<video src="https://github.com/user-attachments/assets/017cc6b0-be81-47a0-b6ba-245509cfbde7" controls width="100%" />
+
+<!-- 👇-->
+
 
 
