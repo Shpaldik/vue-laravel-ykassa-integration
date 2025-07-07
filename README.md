@@ -1,3 +1,5 @@
+[![Watch Demo]([https://ibb.co/TxNfWtwd)](https://vimeo.com/1099360143)
+
 Setup Guide
 
 System Requirements
@@ -71,6 +73,7 @@ o	Save the settings
 8.	Configure themes:
 o	Open tailwind.config.js
 o	You’ll see custom color themes for blue, dark, and root (light mode)
+
  
 Running the Project
 1.	Run database migrations:
