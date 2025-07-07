@@ -14,7 +14,7 @@ Laravel 12 is the latest version with active security fixes and improvements. Un
  
 Installing Dependencies
 1.	Clone the repository:
-git clone <repository_url>
+git clone https://github.com/Shpaldik/vue-laravel-ykassa-integration
 cd <project_folder>
    
 2.	Install PHP dependencies via Composer:
